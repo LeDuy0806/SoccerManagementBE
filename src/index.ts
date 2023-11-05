@@ -1,6 +1,10 @@
-import express, { Request, Response } from 'express';
-import { connectDB } from './constants/config';
+import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
+import { defaultErrorHandler } from './middlewares/error.middlewares';
+import { connectDB } from './constants/config';
+import route from './routes';
 
 dotenv.config();
 
@@ -9,12 +13,13 @@ const PORT = process.env.PORT || 5000;
 
 connectDB();
 
+app.use(cors());
+
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    return res.status(301).json({ haha: 'Hello From Express and Typescirpt' });
-});
+app.use(route);
+app.use(defaultErrorHandler);
 
 app.listen(PORT, () => {
-    console.log(`Listen on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
