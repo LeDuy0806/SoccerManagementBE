@@ -1,5 +1,6 @@
-import { IPLayer } from '@/interface/player.interface';
 import { Schema, model } from 'mongoose';
+import { IPLayer } from '@/interface/player.interface';
+import { SCHEMA } from './schema-name';
 
 const playerSchema = new Schema<IPLayer>({
     name: { type: String, required: true },
@@ -7,6 +8,6 @@ const playerSchema = new Schema<IPLayer>({
     position: String,
 });
 
-const Player = model<IPLayer>('Player', playerSchema);
+const Player = model<IPLayer>(SCHEMA.PLAYER, playerSchema);
 
 export default Player;

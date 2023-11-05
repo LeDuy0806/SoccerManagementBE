@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 export interface IPLayer {
-    _id: ObjectId;
+    _id?: ObjectId;
     name: string;
     age: number;
     position: string;

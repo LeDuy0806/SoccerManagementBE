@@ -1,4 +1,4 @@
-const HTTP_STATUS = {
+const HTTP_STATUS: { [key: string]: number } = {
     OK: 200,
     CREATED: 201,
     ACCEPTED: 202,
