@@ -3,7 +3,7 @@ export interface ICustomError {
     message: string;
 }
 
-class CustomError implements ICustomError {
+export class CustomError implements ICustomError {
     statusCode: number;
     message: string;
     constructor(statusCode: number, message: string) {
@@ -11,5 +11,3 @@ class CustomError implements ICustomError {
         this.statusCode = statusCode;
     }
 }
-
-export default CustomError;

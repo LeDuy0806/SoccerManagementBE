@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { wrapRequestHandler } from '@/utils/handles';
 import { login, register } from '@/controllers/auth.controller';
+import { wrapRequestHandler } from '@/utils/handles';
 
 const authRouter = Router();
 
