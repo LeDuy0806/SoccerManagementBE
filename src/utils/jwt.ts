@@ -1,4 +1,4 @@
-import { ITokenPayload } from '@/interfaces';
+import { TokenPayload } from '@/interfaces';
 import jwt, { SignOptions } from 'jsonwebtoken';
 
 export const signToken = ({
@@ -29,12 +29,12 @@ export const verifyToken = ({
     token: string;
     secretOrPublicKey: string;
 }) => {
-    return new Promise<ITokenPayload>((resolve, reject) => {
+    return new Promise<TokenPayload>((resolve, reject) => {
         jwt.verify(token, secretOrPublicKey, (error, decoded) => {
             if (error) {
                 throw reject(error);
             }
-            resolve(decoded as ITokenPayload);
+            resolve(decoded as TokenPayload);
         });
     });
 };
