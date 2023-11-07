@@ -1,11 +1,11 @@
 import { Request } from 'express';
-import { verifyToken } from './jwt';
-import { capitalize } from 'lodash';
 import { JsonWebTokenError } from 'jsonwebtoken';
+import { capitalize } from 'lodash';
+import { verifyToken } from './jwt';
 
 import HTTP_STATUS from '@/constants/httpStatus';
 import { USERS_MESSAGES } from '@/constants/messages';
-import CustomError from '@/interface/error.interface';
+import CustomError from '@/interfaces/error.interface';
 
 export const verifyAccessToken = async (
     access_token: string,

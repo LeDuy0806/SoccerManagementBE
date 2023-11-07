@@ -1,3 +1,4 @@
 export * from './player';
+export * from './role.schema';
 export * from './schema-name';
-export * from './user';
+export * from './user.schema';

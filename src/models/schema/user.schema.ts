@@ -1,13 +1,13 @@
-import { Iuser } from '@/interface/users.interface';
+import { IUser } from '@/interfaces';
 import { Schema, model } from 'mongoose';
 import { SCHEMA } from './schema-name';
 
-const userSchema = new Schema<Iuser>({
+const userSchema = new Schema<IUser>({
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    name: { type: String },
-    day_of_birth: { type: Date },
+    isActive: { type: Boolean, default: true },
+    dob: { type: Date },
 });
 
-export const Player = model<Iuser>(SCHEMA.PLAYER, userSchema);
+export const User = model<IUser>(SCHEMA.USER, userSchema);
