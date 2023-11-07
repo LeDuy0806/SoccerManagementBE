@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { omit } from 'lodash';
 
 import HTTP_STATUS from '@/constants/httpStatus';
-import CustomError from '@/interface/error.interface';
+import { CustomError } from '@/interface';
 
 export const defaultErrorHandler = (
     err: any,

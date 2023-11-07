@@ -1,5 +1,5 @@
-import { Request } from 'express';
-import { Iuser } from './interface/users.interface';
+import 'express';
+import { Iuser } from './interface';
 
 declare module 'express' {
     interface Request {
