@@ -1,8 +1,16 @@
 {
     "compilerOptions": {
-      "module": "NodeNext", // Quy định output module được sử dụng
-      "moduleResolution": "NodeNext",
-      "target": "ES2022", // Target output cho code
+      "module": "CommonJS",
+      "target": "ES2016",
+      "allowJs": true,
+      "strictNullChecks": true,
+      "noImplicitAny": true,
+      "strictFunctionTypes": false,
+      "noImplicitThis": false,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "forceConsistentCasingInFileNames": true,
+      "sourceMap": true,
       "outDir": "dist", // Đường dẫn output cho thư mục build
       "esModuleInterop": true,
       "strict": true /* Enable all strict type-checking options. */,
