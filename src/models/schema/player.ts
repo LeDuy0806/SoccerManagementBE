@@ -1,4 +1,4 @@
-import { IPLayer } from '@/interface';
+import { IPLayer } from '@/interfaces';
 import { Schema, model } from 'mongoose';
 import { SCHEMA } from './schema-name';
 

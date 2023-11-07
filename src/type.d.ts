@@ -1,9 +1,9 @@
 import 'express';
-import { Iuser } from './interface';
+import { User } from './models/schema';
 
 declare module 'express' {
     interface Request {
-        user?: Iuser;
+        user?: typeof User;
         decoded_authorization?: TokenPayload;
     }
 }

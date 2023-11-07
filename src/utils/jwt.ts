@@ -1,4 +1,4 @@
-import { ITokenPayload } from '@/interface';
+import { ITokenPayload } from '@/interfaces';
 import jwt, { SignOptions } from 'jsonwebtoken';
 
 export const signToken = ({
