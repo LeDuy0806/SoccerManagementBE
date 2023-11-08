@@ -1,6 +1,5 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import { CreateUserDto, RefreshTokenDto } from '@/dtos';
-import { IUser } from '@/interfaces';
 import { AuthService } from '@/services/auth.service';
 import { NextFunction, Request, Response } from 'express';
 import Container from 'typedi';
@@ -11,10 +10,11 @@ export class AuthController {
     public signUp = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userData: CreateUserDto = req.body;
-            const signUpUserData: IUser = await this.auth.signup(userData);
+            const { token, signUpUserData } = await this.auth.signup(userData);
 
             res.status(HTTP_STATUS.CREATED).json({
                 data: signUpUserData,
+                token: token,
                 message: 'signup',
             });
         } catch (error) {
