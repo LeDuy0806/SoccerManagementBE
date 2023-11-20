@@ -1,4 +1,18 @@
 export const SCHEMA = {
     PLAYER: 'players',
+    COACH: 'coaches',
+    TEAM: 'teams',
+    MATCH: 'matches',
+    ROUND: 'rounds',
+    REFEREE: 'referees',
+    STADIUM: 'stadiums',
+    CARD: 'cards',
+    GOAL: 'goals',
+    STATISTICALPlAYER: 'statisticalplayers',
+    STATISTICALTEAM: 'statisticalteams',
+    LEADERBOARD: 'leaderboards',
+    AWARD: 'awards',
+    PRIZE: 'prizes',
+    TOURNAMENT: 'tournaments',
     USER: 'users',
 };
