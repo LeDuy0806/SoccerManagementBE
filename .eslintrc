@@ -1,34 +1,15 @@
 {
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint", "prettier"],
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "eslint-config-prettier", "prettier", "plugin:node/recommended"],
-    "rules": {
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": "off",
-      "prettier/prettier": [
-        "warn",
-        {
-          "arrowParens": "always",
-          "bracketSameLine": false,
-          "bracketSpacing": true,
-          "embeddedLanguageFormatting": "auto",
-          "htmlWhitespaceSensitivity": "css",
-          "insertPragma": false,
-          "jsxSingleQuote": false,
-          "printWidth": 80,
-          "proseWrap": "preserve",
-          "quoteProps": "as-needed",
-          "requirePragma": false,
-          "endOfLine": "auto",
-          "semi": true,
-          "singleQuote": true,
-          "tabWidth": 4,
-          "trailingComma": "all",
-          "useTabs": false,
-          "vueIndentScriptAndStyle": false
-        }
-      ]
-    }
+  "parser": "@typescript-eslint/parser",
+  "extends": ["prettier", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
   }
-  
+}

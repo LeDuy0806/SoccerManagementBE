@@ -30,7 +30,9 @@ const createToken = (user: IUser, exp: number, type: ETokenType): TokenData => {
 
 @Service()
 export class AuthService {
-    public async signup(userData: CreateUserDto): Promise<IUser> {
+    public async signup(
+        userData: CreateUserDto,
+    ): Promise<{ token: TokenPayload; signUpUserData: IUser }> {
         const findUser = await User.findOne({ email: userData.email });
         if (findUser)
             throw new HttpException(
@@ -46,22 +48,22 @@ export class AuthService {
 
         await createUserData.save();
 
-        var roleType = await RoleType.findOne({ name: userData.role });
+        const roleType = await RoleType.findOne({ name: userData.role });
         if (roleType) {
-            var role = new Role({
+            const role = new Role({
                 userId: createUserData._id,
                 roleId: roleType._id,
             });
 
             role.save();
         } else {
-            var newRoleType = new RoleType({
+            const newRoleType = new RoleType({
                 name: createUserData.role,
             });
 
             newRoleType.save();
 
-            var role = new Role({
+            const role = new Role({
                 userId: createUserData._id,
                 roleId: newRoleType._id,
             });
@@ -69,7 +71,28 @@ export class AuthService {
             role.save();
         }
 
-        return createUserData;
+        const accessTokenExp = 60 * 60;
+        const refreshTokenExp = 24 * 60 * 60;
+
+        const { token: accessToken } = createToken(
+            createUserData,
+            accessTokenExp,
+            ETokenType.ACCESS,
+        );
+
+        const { token: refreshToken } = createToken(
+            createUserData,
+            refreshTokenExp,
+            ETokenType.REFRESH,
+        );
+
+        createUserData.refreshToken = refreshToken;
+        createUserData.save();
+
+        return {
+            token: { accessToken, refreshToken },
+            signUpUserData: createUserData,
+        };
     }
 
     public async login(
