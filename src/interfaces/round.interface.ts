@@ -1,16 +1,17 @@
 import { ObjectId } from 'mongodb';
+import { ITable } from './table.interface';
 
 export interface IRound {
     _id?: ObjectId;
-    type: string;
-    match?: ObjectId[];
-    table?: TABLE[];
+    name: string;
+    type: ETypeRound;
+    leaderBoard: ObjectId[];
+    matches?: ObjectId[];
     numberOfTeam: number;
-    status: string;
+    tables?: ITable[];
 }
 
-interface TABLE {
-    name: string;
-    teams: ObjectId[];
-    match: ObjectId[];
+export enum ETypeRound {
+    ROUND = 'ROUND',
+    STAGE = 'STAGE',
 }

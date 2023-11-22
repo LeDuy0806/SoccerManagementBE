@@ -5,7 +5,7 @@ import { verifyToken } from './jwt';
 
 import HTTP_STATUS from '@/constants/httpStatus';
 import { USERS_MESSAGES } from '@/constants/messages';
-import CustomError from '@/interfaces/error.interface';
+import { CustomError } from '@/interfaces/error.interface';
 
 export const verifyAccessToken = async (
     access_token: string,

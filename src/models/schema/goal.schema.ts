@@ -8,7 +8,7 @@ const goalSchema = new Schema<IGoal>({
     assist: { type: ObjectId, required: true, ref: SCHEMA.PLAYER },
     time: { type: Date, required: true },
     match: { type: ObjectId, required: true, ref: SCHEMA.MATCH },
-    typeOfGoal: { type: String, required: true },
+    type: { type: String, required: true },
 });
 
 export const Goal = model<IGoal>(SCHEMA.GOAL, goalSchema);

@@ -5,9 +5,11 @@ import { ObjectId } from 'mongodb';
 
 const roundSchema = new Schema<IRound>({
     type: { type: String, required: true },
-    match: [{ type: ObjectId, required: true, ref: SCHEMA.MATCH }],
+    name: { type: String, required: true },
+    matches: [{ type: ObjectId, required: true, ref: SCHEMA.MATCH }],
+    leaderBoard: [{ type: ObjectId, required: true, ref: SCHEMA.TEAM }],
     numberOfTeam: { type: Number, required: true },
-    status: { type: String, required: true },
+    tables: [{ type: ObjectId, required: true, ref: SCHEMA.TABLE }],
 });
 
 export const Round = model<IRound>(SCHEMA.ROUND, roundSchema);

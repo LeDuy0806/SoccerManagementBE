@@ -2,9 +2,14 @@ import { ObjectId } from 'mongodb';
 
 export interface ICard {
     _id?: ObjectId;
+    type: ETypeCard;
     player: ObjectId;
     victim: ObjectId;
-    type: string;
     match: ObjectId;
     time: Date;
+}
+
+export enum ETypeCard {
+    YELLOW = 'YELLOW',
+    RED = 'RED',
 }

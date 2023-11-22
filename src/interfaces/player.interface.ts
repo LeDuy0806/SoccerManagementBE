@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
+import { IStatisticalPLayer } from './statisticalPlayer.interface';
 
-export interface IPLayer {
+export interface IPlayer {
     _id?: ObjectId;
     name: string;
     avatar: string;
@@ -12,11 +13,6 @@ export interface IPLayer {
     dateStart: Date;
     position: string;
     goals: number;
-    ownerClub: string;
-    numberOfGoal: ObjectId[];
-    numberOfOwnGoal: ObjectId[];
-    yellowCard: ObjectId[];
-    redCard: ObjectId[];
-    voteBestPlayer: ObjectId[];
-    voteBestPosition: ObjectId[];
+    ownerClub?: string;
+    statisticalPlayer: IStatisticalPLayer;
 }
