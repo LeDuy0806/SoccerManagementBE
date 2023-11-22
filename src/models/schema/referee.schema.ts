@@ -8,6 +8,7 @@ const refereeSchema = new Schema<IReferee>({
     age: { type: Number },
     dob: { type: Date },
     nation: { type: String, required: true },
+    wikipedia: { type: String },
 });
 
 export const Referee = model<IReferee>(SCHEMA.REFEREE, refereeSchema);

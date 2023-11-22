@@ -6,13 +6,19 @@ export interface IMatch {
     teamTwo: ObjectId;
     pointOfTeamOne: number;
     pointOfTeamTwo: number;
-    card: ObjectId[];
-    goal: ObjectId[];
+    cards: ObjectId[];
+    goals: ObjectId[];
     mainReferee: ObjectId;
     subReferee: ObjectId[];
+    score: string;
     stadium: ObjectId;
     round: string;
-    score: string;
-    isLive: boolean;
+    status: ETypeStatusMatch;
     time: Date;
+}
+
+export enum ETypeStatusMatch {
+    UNSTARTED = 'NOT STARTED',
+    HAPPING = 'HAPPING',
+    END = 'END',
 }

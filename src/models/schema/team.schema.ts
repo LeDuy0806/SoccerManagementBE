@@ -7,6 +7,7 @@ const teamSchema = new Schema<ITeam>({
     name: { type: String, required: true },
     flag: { type: String, required: true },
     coach: { type: ObjectId, ref: SCHEMA.COACH },
+    stadium: { type: ObjectId, ref: SCHEMA.STADIUM },
     players: [
         {
             type: ObjectId,
@@ -19,16 +20,13 @@ const teamSchema = new Schema<ITeam>({
             ref: SCHEMA.MATCH,
         },
     ],
-    voteChampion: [
+    rank: {
+        type: String,
+    },
+    statisticalTeam: [
         {
             type: ObjectId,
-            ref: SCHEMA.USER,
-        },
-    ],
-    voteFairPlay: [
-        {
-            type: ObjectId,
-            ref: SCHEMA.USER,
+            ref: SCHEMA.TEAM,
         },
     ],
 });

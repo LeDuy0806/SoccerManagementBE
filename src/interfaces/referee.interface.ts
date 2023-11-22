@@ -7,4 +7,5 @@ export interface IReferee {
     age: number;
     dob: Date;
     nation: string;
+    wikipedia: string;
 }

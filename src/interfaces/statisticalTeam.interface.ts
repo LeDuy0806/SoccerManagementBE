@@ -7,11 +7,12 @@ export interface IStatisticalTeam {
     draws: number;
     losses: number;
     point: number;
-    numberOfGoal: number;
-    numberOfLost: number;
-    numberOfOwnGoal: number;
-    yellowCard: number;
-    yellowRed: number;
-    rank: number;
-    tournament: ObjectId;
+    goals: ObjectId[];
+    losts: ObjectId[];
+    own: ObjectId[];
+    yellowCards: ObjectId[];
+    redCards: ObjectId[];
+    rank?: number;
+    voteChampion: ObjectId[];
+    voteFairFlay: ObjectId[];
 }

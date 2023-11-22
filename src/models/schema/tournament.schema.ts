@@ -4,12 +4,15 @@ import { SCHEMA } from './schema-name';
 import { ObjectId } from 'mongodb';
 
 const tournamentSchema = new Schema<ITournament>({
+    formula: { type: String, required: true },
     name: { type: String, required: true },
-    award: { type: ObjectId, required: true, ref: SCHEMA.AWARD },
-    leaderBoard: { type: ObjectId, required: true, ref: SCHEMA.LEADERBOARD },
+    image: { type: String, required: true },
+    awardPlayers: [{ type: ObjectId, required: true, ref: SCHEMA.AWARDPLAYER }],
+    awardTeams: [{ type: ObjectId, required: true, ref: SCHEMA.AWARDTEAM }],
+    prizes: [{ type: ObjectId, required: true }],
     status: { type: String, required: true },
     sponsor: { type: String, required: true },
-    round: [{ type: ObjectId, required: true, ref: SCHEMA.ROUND }],
+    rounds: [{ type: ObjectId, required: true, ref: SCHEMA.ROUND }],
     year: { type: Date, required: true },
 });
 

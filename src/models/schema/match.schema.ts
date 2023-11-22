@@ -8,14 +8,14 @@ const matchSchema = new Schema<IMatch>({
     teamTwo: { type: ObjectId, required: true, ref: SCHEMA.TEAM },
     pointOfTeamOne: { type: Number, required: true },
     pointOfTeamTwo: { type: Number, required: true },
-    card: [{ type: ObjectId, required: true, ref: SCHEMA.CARD }],
-    goal: [{ type: ObjectId, required: true, ref: SCHEMA.GOAL }],
+    cards: [{ type: ObjectId, required: true, ref: SCHEMA.CARD }],
+    goals: [{ type: ObjectId, required: true, ref: SCHEMA.GOAL }],
     mainReferee: { type: ObjectId, required: true, ref: SCHEMA.REFEREE },
     subReferee: [{ type: ObjectId, required: true, ref: SCHEMA.REFEREE }],
     stadium: [{ type: ObjectId, required: true, ref: SCHEMA.STADIUM }],
     round: { type: String, required: true },
     score: { type: String, required: true },
-    isLive: { type: Boolean, required: true },
+    status: { type: String, required: true },
     time: { type: Date, required: true },
 });
 

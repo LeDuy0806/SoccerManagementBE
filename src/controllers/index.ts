@@ -1,3 +1,23 @@
-export * from './auth.controller';
+// export * from './auth.controller';
 // export * from './player.controller';
 // export * from './user.controller';
+
+export * from './auth.controller';
+export * from './awardPlayer.controller';
+export * from './awardTeam.controller';
+export * from './card.controller';
+export * from './coach.controller';
+export * from './goal.controller';
+export * from './match.controller';
+export * from './player.controller';
+export * from './prize.controller';
+export * from './referee.controller';
+export * from './round.controller';
+export * from './sponsor.controller';
+export * from './stadium.controller';
+export * from './statisticalPlayer.controller';
+export * from './statisticalTeam.controller';
+export * from './table.controller';
+export * from './team.controller';
+export * from './tournament.controller';
+export * from './user.controller';
