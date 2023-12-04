@@ -3,10 +3,10 @@ import { ObjectId } from 'mongodb';
 export interface ICard {
     _id?: ObjectId;
     type: ETypeCard;
-    player: ObjectId;
-    victim: ObjectId;
+    player: string;
     match: ObjectId;
-    time: Date;
+    time: number;
+    number: number;
 }
 
 export enum ETypeCard {

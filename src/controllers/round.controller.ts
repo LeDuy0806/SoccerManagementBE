@@ -20,6 +20,33 @@ export class RoundController {
         }
     };
 
+    public getRounds = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        try {
+            const roundStage = await this.round.getRoundStage();
+            res.status(HTTP_STATUS.OK).json(roundStage);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    public getRoundsByTags = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const { tags }: any = req.params;
+        try {
+            const rounds = await this.round.getRoundsByTags(tags);
+            res.status(HTTP_STATUS.OK).json(rounds);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     public getRound = async (
         req: Request,
         res: Response,

@@ -3,15 +3,10 @@ import { ITable } from './table.interface';
 
 export interface IRound {
     _id?: ObjectId;
-    name: string;
-    type: ETypeRound;
-    leaderBoard: ObjectId[];
-    matches?: ObjectId[];
+    type: string;
     numberOfTeam: number;
     tables?: ITable[];
-}
-
-export enum ETypeRound {
-    ROUND = 'ROUND',
-    STAGE = 'STAGE',
+    status: string;
+    tags: string;
+    matches?: ObjectId[];
 }

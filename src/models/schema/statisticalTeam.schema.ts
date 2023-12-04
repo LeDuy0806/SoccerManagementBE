@@ -4,19 +4,21 @@ import { SCHEMA } from './schema-name';
 import { ObjectId } from 'mongodb';
 
 const statisticalTeamSchema = new Schema<IStatisticalTeam>({
-    team: { type: ObjectId, required: true },
+    team: { type: ObjectId, required: true, ref: SCHEMA.TEAM },
     wins: { type: Number, required: true },
     draws: { type: Number, required: true },
     losses: { type: Number, required: true },
     point: { type: Number, required: true },
-    goals: [{ type: ObjectId, required: true, ref: SCHEMA.GOAL }],
-    losts: [{ type: ObjectId, required: true, ref: SCHEMA.GOAL }],
-    own: [{ type: ObjectId, required: true, ref: SCHEMA.GOAL }],
-    yellowCards: [{ type: ObjectId, required: true, ref: SCHEMA.CARD }],
-    redCards: [{ type: ObjectId, required: true, ref: SCHEMA.CARD }],
+    goals: { type: Number, required: true },
+    losts: { type: Number, required: true },
+    owns: { type: Number, required: true },
+    yellowCards: { type: Number, required: true },
+    redCards: { type: Number, required: true },
     rank: { type: Number, required: true },
-    voteChampion: [{ type: ObjectId, required: true, ref: SCHEMA.USER }],
-    voteFairFlay: [{ type: ObjectId, required: true, ref: SCHEMA.USER }],
+    voteChampions: [{ type: ObjectId, required: true, ref: SCHEMA.USER }],
+    voteFairPlays: [{ type: ObjectId, required: true, ref: SCHEMA.USER }],
+    tags: { type: String, required: true },
+    history: [{ type: String, required: true }],
 });
 
 export const StatisticalTeam = model<IStatisticalTeam>(

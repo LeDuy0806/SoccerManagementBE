@@ -43,11 +43,11 @@ export class CardService {
     }
 
     public async createCard(CardData: ICard): Promise<ICard> {
-        const { type, player, victim, match, time } = CardData;
+        const { type, player, match, number, time } = CardData;
         const newCard = new Card({
             type,
             player,
-            victim,
+            number,
             match,
             time,
         });
@@ -63,7 +63,7 @@ export class CardService {
     }
 
     public async updateCard(CardData: ICard, id: string): Promise<ICard> {
-        const { type, player, victim, match, time } = CardData;
+        const { type, player, match, number, time } = CardData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -75,8 +75,8 @@ export class CardService {
         const newCard = new Card({
             type,
             player,
-            victim,
             match,
+            number,
             time,
         });
         try {

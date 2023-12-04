@@ -4,13 +4,15 @@ import { SCHEMA } from './schema-name';
 import { ObjectId } from 'mongodb';
 
 const statisticalPlayerSchema = new Schema<IStatisticalPLayer>({
-    player: { type: ObjectId, required: true },
-    goals: [{ type: ObjectId, required: true, ref: SCHEMA.GOAL }],
-    assists: [{ type: ObjectId, required: true, ref: SCHEMA.GOAL }],
-    yellowCards: [{ type: ObjectId, required: true, ref: SCHEMA.CARD }],
-    redCards: [{ type: ObjectId, required: true, ref: SCHEMA.CARD }],
-    voteBestPlayer: [{ type: ObjectId, required: true, ref: SCHEMA.USER }],
-    voteBestPosition: [{ type: ObjectId, required: true, ref: SCHEMA.USER }],
+    player: { type: ObjectId, required: true, ref: SCHEMA.PLAYER },
+    team: { type: ObjectId, required: true, ref: SCHEMA.TEAM },
+    goals: { type: Number, required: true },
+    owner: { type: Number, required: true },
+    yellowCards: { type: Number, required: true },
+    redCards: { type: Number, required: true },
+    voteBestPlayer: { type: Number, required: true },
+    voteBestPosition: { type: Number, required: true },
+    tags: { type: String, required: true },
 });
 
 export const StatisticalPlayer = model<IStatisticalPLayer>(

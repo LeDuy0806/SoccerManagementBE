@@ -14,6 +14,11 @@ class RoundRoute implements Routes {
     }
 
     private initializeRoutes() {
+        this.router.get('/', wrapRequestHandler(this.round.getRounds));
+        this.router.get(
+            '/tags/:tags',
+            wrapRequestHandler(this.round.getRoundsByTags),
+        );
         this.router.get('/stage', wrapRequestHandler(this.round.getRoundStage));
     }
 }

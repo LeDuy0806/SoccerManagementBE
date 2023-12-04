@@ -4,12 +4,19 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { ITournament } from '@/interfaces';
 import { ObjectId } from 'mongodb';
+import { TournamentFormat } from '@/types/request';
 
 @Service()
 export class TournamentService {
     public async getTournaments(): Promise<ITournament[]> {
         try {
-            const tournaments = await Tournament.find();
+            const tournaments = await Tournament.find()
+                .populate('prizes')
+                .populate('teams')
+                .populate('sponsor')
+                .populate('referees')
+                .populate('stadiums')
+                .exec();
             if (!tournaments) {
                 throw new HttpException(
                     HTTP_STATUS.NOT_FOUND,
@@ -18,6 +25,120 @@ export class TournamentService {
             }
             return tournaments;
         } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
+    public async getTournamentsFormat(
+        format: TournamentFormat,
+    ): Promise<ITournament[]> {
+        try {
+            if (!format.formula || !format.status || !format.vision) {
+                if (!format.formula && !format.status && !format.vision) {
+                    const tournaments = await Tournament.find();
+                    if (!tournaments) {
+                        throw new HttpException(
+                            HTTP_STATUS.NOT_FOUND,
+                            `tournaments not found`,
+                        );
+                    }
+                    return tournaments;
+                }
+                if (format.formula && !format.status && !format.vision) {
+                    const tournaments = await Tournament.find({
+                        formula: format.formula,
+                    });
+                    if (!tournaments) {
+                        throw new HttpException(
+                            HTTP_STATUS.NOT_FOUND,
+                            `tournaments not found`,
+                        );
+                    }
+                    return tournaments;
+                }
+                if (!format.formula && !format.status && format.vision) {
+                    const tournaments = await Tournament.find({
+                        vision: format.vision,
+                    });
+                    if (!tournaments) {
+                        throw new HttpException(
+                            HTTP_STATUS.NOT_FOUND,
+                            `tournaments not found`,
+                        );
+                    }
+                    return tournaments;
+                }
+                if (!format.formula && format.status && !format.vision) {
+                    const tournaments = await Tournament.find({
+                        status: format.status,
+                    });
+                    if (!tournaments) {
+                        throw new HttpException(
+                            HTTP_STATUS.NOT_FOUND,
+                            `tournaments not found`,
+                        );
+                    }
+                    return tournaments;
+                }
+                if (!format.formula && format.status && format.vision) {
+                    const tournaments = await Tournament.find({
+                        status: format.status,
+                        vision: format.vision,
+                    });
+                    if (!tournaments) {
+                        throw new HttpException(
+                            HTTP_STATUS.NOT_FOUND,
+                            `tournaments not found`,
+                        );
+                    }
+                    return tournaments;
+                }
+                if (format.formula && format.status && !format.vision) {
+                    const tournaments = await Tournament.find({
+                        status: format.status,
+                        formula: format.formula,
+                    });
+                    if (!tournaments) {
+                        throw new HttpException(
+                            HTTP_STATUS.NOT_FOUND,
+                            `tournaments not found`,
+                        );
+                    }
+                    return tournaments;
+                }
+                if (format.formula && !format.status && format.vision) {
+                    const tournaments = await Tournament.find({
+                        vision: format.vision,
+                        formula: format.formula,
+                    });
+                    if (!tournaments) {
+                        throw new HttpException(
+                            HTTP_STATUS.NOT_FOUND,
+                            `tournaments not found`,
+                        );
+                    }
+                    return tournaments;
+                }
+            } else {
+                const tournaments = await Tournament.find({
+                    formula: format.formula,
+                    vision: format.vision,
+                    status: format.status,
+                });
+                if (!tournaments) {
+                    throw new HttpException(
+                        HTTP_STATUS.NOT_FOUND,
+                        `tournaments not found`,
+                    );
+                }
+                return tournaments;
+            }
+            return [];
+        } catch (e) {
+            console.log(e);
             throw new HttpException(
                 HTTP_STATUS.INTERNAL_SERVER_ERROR,
                 `Server error`,
@@ -55,7 +176,7 @@ export class TournamentService {
             status,
             sponsor,
             rounds,
-            year,
+            season,
         } = tournamentData;
         const existsTournamentName = await Tournament.findOne({
             name: tournamentData.name,
@@ -75,7 +196,7 @@ export class TournamentService {
             status,
             sponsor,
             rounds,
-            year,
+            season,
         });
         try {
             const tournament = await newTournament.save();
@@ -101,7 +222,7 @@ export class TournamentService {
             status,
             sponsor,
             rounds,
-            year,
+            season,
         } = tournamentData;
 
         if (!ObjectId.isValid(id)) {
@@ -120,7 +241,7 @@ export class TournamentService {
             status,
             sponsor,
             rounds,
-            year,
+            season,
         });
         try {
             const updateTournament = await Tournament.findByIdAndUpdate(

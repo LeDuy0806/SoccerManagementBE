@@ -43,7 +43,7 @@ export class AwardTeamService {
     }
 
     public async createTeam(awardTeamData: IAwardTeam): Promise<IAwardTeam> {
-        const { name, object } = awardTeamData;
+        const { name } = awardTeamData;
         const existsTeamName = await AwardTeam.findOne({
             name: awardTeamData.name,
         });
@@ -55,7 +55,6 @@ export class AwardTeamService {
         }
         const newTeam = new AwardTeam({
             name,
-            object,
         });
         try {
             const awardTeam = await newTeam.save();
@@ -72,7 +71,7 @@ export class AwardTeamService {
         teamData: IAwardTeam,
         id: string,
     ): Promise<IAwardTeam> {
-        const { name, object } = teamData;
+        const { name } = teamData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -83,7 +82,6 @@ export class AwardTeamService {
 
         const newAwardTeam = new AwardTeam({
             name,
-            object,
         });
         try {
             const updateTeam = await AwardTeam.findByIdAndUpdate(

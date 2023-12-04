@@ -7,12 +7,20 @@ export interface IStatisticalTeam {
     draws: number;
     losses: number;
     point: number;
-    goals: ObjectId[];
-    losts: ObjectId[];
-    own: ObjectId[];
-    yellowCards: ObjectId[];
-    redCards: ObjectId[];
+    goals: number;
+    losts: number;
+    owns: number;
+    yellowCards: number;
+    redCards: number;
     rank?: number;
-    voteChampion: ObjectId[];
-    voteFairFlay: ObjectId[];
+    voteChampions: ObjectId[];
+    voteFairPlays: ObjectId[];
+    history?: ETypeHistory[];
+    tags: string;
+}
+
+export enum ETypeHistory {
+    WIN = 'WIN',
+    DRAW = 'DRAW',
+    LOSSES = 'LOSSES',
 }

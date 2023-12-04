@@ -25,6 +25,31 @@ export class StatisticalPlayerService {
         }
     }
 
+    public async getStatisticalPlayersByTags(
+        tags: string,
+    ): Promise<IStatisticalPLayer[]> {
+        try {
+            const statisticalPlayers = await StatisticalPlayer.find({
+                tags: tags,
+            })
+                .populate('player')
+                .populate('team')
+                .exec();
+            if (!statisticalPlayers) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `statisticalPlayers not found`,
+                );
+            }
+            return statisticalPlayers;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
     public async getStatisticalPlayer(id: string): Promise<IStatisticalPLayer> {
         try {
             const statisticalPlayer = await StatisticalPlayer.findById(id);
@@ -49,7 +74,7 @@ export class StatisticalPlayerService {
         const {
             player,
             goals,
-            assists,
+            owner,
             yellowCards,
             redCards,
             voteBestPlayer,
@@ -67,7 +92,7 @@ export class StatisticalPlayerService {
         const newStatisticalPlayer = new StatisticalPlayer({
             player,
             goals,
-            assists,
+            owner,
             yellowCards,
             redCards,
             voteBestPlayer,
@@ -91,7 +116,7 @@ export class StatisticalPlayerService {
         const {
             player,
             goals,
-            assists,
+            owner,
             yellowCards,
             redCards,
             voteBestPlayer,
@@ -108,7 +133,7 @@ export class StatisticalPlayerService {
         const newStatisticalPlayer = new StatisticalPlayer({
             player,
             goals,
-            assists,
+            owner,
             yellowCards,
             redCards,
             voteBestPlayer,

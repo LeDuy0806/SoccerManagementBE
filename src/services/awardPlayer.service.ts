@@ -46,7 +46,7 @@ export class AwardPlayerService {
     public async createAwardPlayer(
         awardPlayerData: IAwardPlayer,
     ): Promise<IAwardPlayer> {
-        const { name, object } = awardPlayerData;
+        const { name } = awardPlayerData;
         const existsAwardPlayerName = await AwardPlayer.findOne({
             name: awardPlayerData.name,
         });
@@ -58,7 +58,6 @@ export class AwardPlayerService {
         }
         const newAwardPlayer = new AwardPlayer({
             name,
-            object,
         });
         try {
             const awardPlayer = await newAwardPlayer.save();
@@ -75,7 +74,7 @@ export class AwardPlayerService {
         awardPlayerData: IAwardPlayer,
         id: string,
     ): Promise<IAwardPlayer> {
-        const { name, object } = awardPlayerData;
+        const { name } = awardPlayerData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -86,7 +85,6 @@ export class AwardPlayerService {
 
         const newAwardPlayer = new AwardPlayer({
             name,
-            object,
         });
         try {
             const updateAwardPlayer = await AwardPlayer.findByIdAndUpdate(

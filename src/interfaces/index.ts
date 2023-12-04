@@ -15,6 +15,7 @@ export * from './sponsor.interface';
 export * from './stadium.interface';
 export * from './statisticalPlayer.interface';
 export * from './statisticalTeam.interface';
+export * from './statisticalTournament.interface';
 export * from './table.interface';
 export * from './team.interface';
 export * from './tournament.interface';

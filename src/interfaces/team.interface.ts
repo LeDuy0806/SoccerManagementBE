@@ -5,10 +5,11 @@ export interface ITeam {
     _id?: ObjectId;
     name: string;
     flag: string;
-    rank: string;
+    rank?: string;
     coach: ObjectId;
-    stadium?: ObjectId;
     players: ObjectId[];
+    stadium?: ObjectId;
     matches: ObjectId[];
-    statisticalTeam: IStatisticalTeam;
+    statistical: IStatisticalTeam;
+    tags: string[];
 }

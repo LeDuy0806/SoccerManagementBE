@@ -20,6 +20,20 @@ export class TeamController {
         }
     };
 
+    public getTeamsByTags = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const { tags }: any = req.params;
+        try {
+            const teams = await this.team.getTeamsByTag(tags);
+            res.status(HTTP_STATUS.OK).json(teams);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     public getTeam = async (
         req: Request,
         res: Response,

@@ -1,4 +1,4 @@
-import { Team } from '@/models/schema';
+import { SCHEMA, Team } from '@/models/schema';
 import { Service } from 'typedi';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
@@ -10,6 +10,71 @@ export class TeamService {
     public async getTeams(): Promise<ITeam[]> {
         try {
             const teams = await Team.find();
+            if (!teams) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `teams not found`,
+                );
+            }
+            return teams;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
+    public async getTeamsByTag(tags: string): Promise<ITeam[]> {
+        try {
+            const teams = await Team.find({ tags: tags })
+                .populate('coach')
+                .populate({
+                    path: 'players',
+                    populate: {
+                        path: 'statistical',
+                        model: SCHEMA.STATISTICALPLAYER,
+                    },
+                })
+                .populate({
+                    path: 'matches',
+                    populate: [
+                        {
+                            path: 'teamOne',
+                            model: SCHEMA.TEAM,
+                        },
+                        {
+                            path: 'teamTwo',
+                            model: SCHEMA.TEAM,
+                        },
+                        {
+                            path: 'mainReferee',
+                            model: SCHEMA.REFEREE,
+                        },
+                        {
+                            path: 'stadium',
+                            model: SCHEMA.STADIUM,
+                        },
+                        {
+                            path: 'cardsTeamOne',
+                            model: SCHEMA.CARD,
+                        },
+                        {
+                            path: 'cardsTeamTwo',
+                            model: SCHEMA.CARD,
+                        },
+                        {
+                            path: 'goalsTeamOne',
+                            model: SCHEMA.GOAL,
+                        },
+                        {
+                            path: 'goalsTeamTwo',
+                            model: SCHEMA.GOAL,
+                        },
+                    ],
+                })
+                .populate('statistical')
+                .exec();
             if (!teams) {
                 throw new HttpException(
                     HTTP_STATUS.NOT_FOUND,
@@ -52,7 +117,7 @@ export class TeamService {
             stadium,
             players,
             matches,
-            statisticalTeam,
+            statistical,
         } = teamData;
         const existsTeamName = await Team.findOne({
             name: teamData.name,
@@ -71,7 +136,7 @@ export class TeamService {
             stadium,
             players,
             matches,
-            statisticalTeam,
+            statistical,
         });
         try {
             const team = await newTeam.save();
@@ -93,7 +158,7 @@ export class TeamService {
             stadium,
             players,
             matches,
-            statisticalTeam,
+            statistical,
         } = teamData;
 
         if (!ObjectId.isValid(id)) {
@@ -111,7 +176,7 @@ export class TeamService {
             stadium,
             players,
             matches,
-            statisticalTeam,
+            statistical,
         });
         try {
             const updateTeam = await Team.findByIdAndUpdate(id, newTeam, {

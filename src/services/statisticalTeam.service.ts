@@ -25,6 +25,28 @@ export class StatisticalTeamService {
         }
     }
 
+    public async getStatisticalTeamsByTag(
+        tags: string,
+    ): Promise<IStatisticalTeam[]> {
+        try {
+            const statisticalTeams = await StatisticalTeam.find({ tags: tags })
+                .populate('team')
+                .exec();
+            if (!statisticalTeams) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `statisticalTeams not found`,
+                );
+            }
+            return statisticalTeams;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
     public async getStatisticalTeam(id: string): Promise<IStatisticalTeam> {
         try {
             const team = await StatisticalTeam.findById(id);
@@ -54,12 +76,12 @@ export class StatisticalTeamService {
             point,
             goals,
             losts,
-            own,
+            owns,
             yellowCards,
             redCards,
             rank,
-            voteChampion,
-            voteFairFlay,
+            voteChampions,
+            voteFairPlays,
         } = teamData;
         const existsTeamName = await StatisticalTeam.findOne({
             name: teamData.team,
@@ -78,12 +100,12 @@ export class StatisticalTeamService {
             point,
             goals,
             losts,
-            own,
+            owns,
             yellowCards,
             redCards,
             rank,
-            voteChampion,
-            voteFairFlay,
+            voteChampions,
+            voteFairPlays,
         });
         try {
             const statisticalTeam = await newTeam.save();
@@ -108,12 +130,12 @@ export class StatisticalTeamService {
             point,
             goals,
             losts,
-            own,
+            owns,
             yellowCards,
             redCards,
             rank,
-            voteChampion,
-            voteFairFlay,
+            voteChampions,
+            voteFairPlays,
         } = teamData;
 
         if (!ObjectId.isValid(id)) {
@@ -131,12 +153,12 @@ export class StatisticalTeamService {
             point,
             goals,
             losts,
-            own,
+            owns,
             yellowCards,
             redCards,
             rank,
-            voteChampion,
-            voteFairFlay,
+            voteChampions,
+            voteFairPlays,
         });
         try {
             const updateTeam = await StatisticalTeam.findByIdAndUpdate(

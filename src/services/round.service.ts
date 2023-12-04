@@ -1,10 +1,9 @@
-import { Round } from '@/models/schema';
+import { Round, SCHEMA } from '@/models/schema';
 import { Service } from 'typedi';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { IRound } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-
 @Service()
 export class RoundService {
     public async getRoundStage(): Promise<IRound> {
@@ -33,6 +32,80 @@ export class RoundService {
         }
     }
 
+    public async getRounds(): Promise<IRound[]> {
+        try {
+            const rounds = await Round.find();
+            if (!rounds) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `Rounds not found`,
+                );
+            }
+            return rounds;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
+    public async getRoundsByTags(tags: string): Promise<IRound[]> {
+        try {
+            const Rounds = await Round.find({ tags: tags })
+                .populate({
+                    path: 'matches',
+                    populate: [
+                        {
+                            path: 'teamOne',
+                            model: SCHEMA.TEAM,
+                        },
+                        {
+                            path: 'teamTwo',
+                            model: SCHEMA.TEAM,
+                        },
+                        {
+                            path: 'mainReferee',
+                            model: SCHEMA.REFEREE,
+                        },
+                        {
+                            path: 'stadium',
+                            model: SCHEMA.STADIUM,
+                        },
+                        {
+                            path: 'cardsTeamOne',
+                            model: SCHEMA.CARD,
+                        },
+                        {
+                            path: 'cardsTeamTwo',
+                            model: SCHEMA.CARD,
+                        },
+                        {
+                            path: 'goalsTeamOne',
+                            model: SCHEMA.GOAL,
+                        },
+                        {
+                            path: 'goalsTeamTwo',
+                            model: SCHEMA.GOAL,
+                        },
+                    ],
+                })
+                .exec();
+            if (!Rounds) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `Rounds not found`,
+                );
+            }
+            return Rounds;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
     public async getRound(id: string): Promise<IRound> {
         try {
             const round = await Round.findById(id);
@@ -52,24 +125,22 @@ export class RoundService {
     }
 
     public async createRound(roundData: IRound): Promise<IRound> {
-        const { type, name, matches, leaderBoard, numberOfTeam, tables } =
-            roundData;
-        const existsRoundName = await Round.findOne({
-            name: roundData.name,
-        });
-        if (existsRoundName) {
-            throw new HttpException(
-                HTTP_STATUS.UNPROCESSABLE_ENTITY,
-                `Round already exists`,
-            );
-        }
+        const { type, matches, numberOfTeam, tables, status } = roundData;
+        // const existsRoundName = await Round.findOne({
+        //     name: roundData.name,
+        // });
+        // if (existsRoundName) {
+        //     throw new HttpException(
+        //         HTTP_STATUS.UNPROCESSABLE_ENTITY,
+        //         `Round already exists`,
+        //     );
+        // }
         const newRound = new Round({
             type,
-            name,
             matches,
-            leaderBoard,
             numberOfTeam,
             tables,
+            status,
         });
         try {
             const Round = await newRound.save();
@@ -83,8 +154,7 @@ export class RoundService {
     }
 
     public async updateRound(roundData: IRound, id: string): Promise<IRound> {
-        const { type, name, matches, leaderBoard, numberOfTeam, tables } =
-            roundData;
+        const { type, matches, numberOfTeam, tables, status } = roundData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -95,11 +165,10 @@ export class RoundService {
 
         const newRound = new Round({
             type,
-            name,
             matches,
-            leaderBoard,
             numberOfTeam,
             tables,
+            status,
         });
         try {
             const updateRound = await Round.findByIdAndUpdate(id, newRound, {

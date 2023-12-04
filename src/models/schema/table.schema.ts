@@ -6,7 +6,9 @@ import { ObjectId } from 'mongodb';
 const tableSchema = new Schema<ITable>({
     name: { type: String, required: true },
     teams: [{ type: ObjectId, required: true, ref: SCHEMA.TEAM }],
-    leaderBoard: [{ type: ObjectId, required: true, ref: SCHEMA.TEAM }],
+    leaderBoard: [
+        { type: ObjectId, required: true, ref: SCHEMA.STATISTICALTEAM },
+    ],
     matches: [{ type: ObjectId, required: true, ref: SCHEMA.MATCH }],
 });
 

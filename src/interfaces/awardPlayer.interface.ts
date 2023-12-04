@@ -3,12 +3,12 @@ import { ObjectId } from 'mongodb';
 export interface IAwardPlayer {
     _id?: ObjectId;
     name: ENameAwardPlayer;
-    object: ObjectId;
+    player: ObjectId;
 }
 
 export enum ENameAwardPlayer {
     BESTPlAYER = 'BESTPlAYER',
-    GOALPLAYER = 'GOALPLAYER',
+    GOALSCORER = 'GOALSCORER',
     STRIKER = 'STRIKER',
     MIDFIELDER = 'MIDFIELDER',
     DEFENDER = 'DEFENDER',

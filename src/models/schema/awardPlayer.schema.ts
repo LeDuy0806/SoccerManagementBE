@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 
 const awardPlayerSchema = new Schema<IAwardPlayer>({
     name: { type: String, required: true },
-    object: { type: ObjectId, ref: SCHEMA.PLAYER },
+    player: { type: ObjectId, ref: SCHEMA.PLAYER },
 });
 
 export const AwardPlayer = model<IAwardPlayer>(

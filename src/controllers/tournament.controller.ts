@@ -3,6 +3,7 @@ import Container from 'typedi';
 import { TournamentService } from '@/services';
 import { NextFunction, Request, Response } from 'express';
 import { ITournament } from '@/interfaces';
+import { TournamentFormat } from '@/types/request';
 
 export class TournamentController {
     public tournament = Container.get(TournamentService);
@@ -14,6 +15,21 @@ export class TournamentController {
     ) => {
         try {
             const tournaments = await this.tournament.getTournaments();
+            res.status(HTTP_STATUS.OK).json(tournaments);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    public getTournamentsFormat = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const format: TournamentFormat = req.body;
+        try {
+            const tournaments =
+                await this.tournament.getTournamentsFormat(format);
             res.status(HTTP_STATUS.OK).json(tournaments);
         } catch (error) {
             next(error);
