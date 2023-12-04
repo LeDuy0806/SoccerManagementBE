@@ -6,19 +6,25 @@ export interface IMatch {
     teamTwo: ObjectId;
     pointOfTeamOne: number;
     pointOfTeamTwo: number;
-    cards: ObjectId[];
-    goals: ObjectId[];
+    scoreTeamOne: number;
+    scoreTeamTwo: number;
+    penaltyTeamOne?: number;
+    penaltyTeamTwo?: number;
     mainReferee: ObjectId;
     subReferee: ObjectId[];
-    score: string;
-    stadium: ObjectId;
     round: string;
-    status: ETypeStatusMatch;
     time: Date;
+    stadium: ObjectId;
+    status: ETypeStatusMatch;
+    tags: string;
+    cardsTeamOne: ObjectId[];
+    cardsTeamTwo: ObjectId[];
+    goalsTeamOne: ObjectId[];
+    goalsTeamTwo: ObjectId[];
 }
 
 export enum ETypeStatusMatch {
-    UNSTARTED = 'NOT STARTED',
-    HAPPING = 'HAPPING',
-    END = 'END',
+    COMING = 'COMING',
+    ACTIVE = 'ACTIVE',
+    FINISHED = 'FINISHED',
 }

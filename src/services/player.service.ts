@@ -24,6 +24,50 @@ export class PlayerService {
         }
     }
 
+    public async getPlayersByTags(tags: string): Promise<IPlayer[]> {
+        try {
+            const players = await Player.find({
+                tags: tags,
+            });
+            if (!players) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `Players not found`,
+                );
+            }
+            return players;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
+    public async getPlayersByTagsAndPosition(
+        tags: string,
+        position: string,
+    ): Promise<IPlayer[]> {
+        try {
+            const players = await Player.find({
+                tags: tags,
+                position: position,
+            });
+            if (!players) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `Players not found`,
+                );
+            }
+            return players;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
     public async getPlayer(id: string): Promise<IPlayer> {
         try {
             const player = await Player.findById(id);
@@ -51,10 +95,8 @@ export class PlayerService {
             national,
             number,
             dob,
-            dateStart,
             position,
-            ownerClub,
-            statisticalPlayer,
+            statistical,
         } = playerData;
         const existsPlayerName = await Player.findOne({
             name: playerData.name,
@@ -73,10 +115,8 @@ export class PlayerService {
             national,
             number,
             dob,
-            dateStart,
             position,
-            ownerClub,
-            statisticalPlayer,
+            statistical,
         });
         try {
             const Player = await newPlayer.save();
@@ -101,10 +141,8 @@ export class PlayerService {
             national,
             number,
             dob,
-            dateStart,
             position,
-            ownerClub,
-            statisticalPlayer,
+            statistical,
         } = playerData;
 
         if (!ObjectId.isValid(id)) {
@@ -122,10 +160,8 @@ export class PlayerService {
             national,
             number,
             dob,
-            dateStart,
             position,
-            ownerClub,
-            statisticalPlayer,
+            statistical,
         });
         try {
             const updatePlayer = await Player.findByIdAndUpdate(id, newPlayer, {

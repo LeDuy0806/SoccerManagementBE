@@ -13,6 +13,7 @@ export const SCHEMA = {
     STADIUM: 'stadiums',
     STATISTICALPLAYER: 'statisticalplayers',
     STATISTICALTEAM: 'statisticalteams',
+    STATISTICALTOURNAMENT: 'statisticaltournaments',
     TABLE: 'tables',
     TEAM: 'teams',
     TOURNAMENT: 'tournaments',

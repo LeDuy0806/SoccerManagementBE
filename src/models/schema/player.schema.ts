@@ -8,18 +8,18 @@ const playerSchema = new Schema<IPlayer>({
     avatar: { type: String },
     age: { type: Number, required: true },
     height: { type: String, required: true },
+    weight: { type: String, required: true },
     national: { type: String, required: true },
     number: { type: Number, required: true },
     dob: { type: Date, required: true },
-    dateStart: { type: Date, required: true },
     position: { type: String, required: true },
-    goals: { type: Number, required: true },
-    ownerClub: { type: String, required: true },
-    statisticalPlayer: {
+    statistical: {
         type: ObjectId,
         required: true,
         ref: SCHEMA.STATISTICALPLAYER,
     },
+    tags: { type: String, required: true },
+    captain: { type: Boolean, required: true },
 });
 
 export const Player = model<IPlayer>(SCHEMA.PLAYER, playerSchema);

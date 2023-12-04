@@ -21,6 +21,21 @@ export class StatisticalTeamController {
         }
     };
 
+    public getStatisticalTeamsByTags = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const { tags }: any = req.params;
+        try {
+            const statisticalTeams =
+                await this.statisticalTeam.getStatisticalTeamsByTag(tags);
+            res.status(HTTP_STATUS.OK).json(statisticalTeams);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     public getStatisticalTeam = async (
         req: Request,
         res: Response,

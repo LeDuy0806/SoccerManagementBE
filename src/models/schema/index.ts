@@ -13,6 +13,7 @@ export * from './sponsor.schema';
 export * from './stadium.schema';
 export * from './statisticalPlayer.schema';
 export * from './statisticalTeam.schema';
+export * from './statisticalTournament.schema';
 export * from './table.schema';
 export * from './team.schema';
 export * from './tournament.schema';

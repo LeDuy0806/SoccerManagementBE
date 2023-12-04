@@ -43,7 +43,7 @@ export class SponsorService {
     }
 
     public async createSponsor(sponsorData: ISponsor): Promise<ISponsor> {
-        const { name, logo, email, phone } = sponsorData;
+        const { name, logo, email } = sponsorData;
         const existsSponsorName = await Sponsor.findOne({
             name: sponsorData.name,
         });
@@ -57,7 +57,6 @@ export class SponsorService {
             name,
             logo,
             email,
-            phone,
         });
         try {
             const sponsor = await newSponsor.save();
@@ -74,7 +73,7 @@ export class SponsorService {
         sponsorData: ISponsor,
         id: string,
     ): Promise<ISponsor> {
-        const { name, logo, email, phone } = sponsorData;
+        const { name, logo, email } = sponsorData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -87,7 +86,6 @@ export class SponsorService {
             name,
             logo,
             email,
-            phone,
         });
         try {
             const updateSponsor = await Sponsor.findByIdAndUpdate(

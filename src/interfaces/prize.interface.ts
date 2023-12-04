@@ -10,6 +10,6 @@ export interface IPrize {
 }
 
 export enum ETypeStatusPrize {
-    FINISH = 'FINISH',
-    UNFINISH = 'UNFINISH',
+    HAPPING = 'HAPPING',
+    FINISHED = 'FINISHED',
 }

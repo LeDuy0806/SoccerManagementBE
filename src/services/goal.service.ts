@@ -44,7 +44,7 @@ export class GoalService {
     }
 
     public async createGoal(goalData: IGoal): Promise<IGoal> {
-        const { type, player, assist, match, time } = goalData;
+        const { player, match, number, time } = goalData;
         // const existsGoalName = await Goal.findOne({
         //     name: GoalData.name,
         // });
@@ -55,10 +55,9 @@ export class GoalService {
         //     );
         // }
         const newGoal = new Goal({
-            type,
             player,
-            assist,
             match,
+            number,
             time,
         });
         try {
@@ -73,7 +72,7 @@ export class GoalService {
     }
 
     public async updateGoal(goalData: IGoal, id: string): Promise<IGoal> {
-        const { type, player, assist, match, time } = goalData;
+        const { player, match, number, time } = goalData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -83,10 +82,9 @@ export class GoalService {
         }
 
         const newGoal = new Goal({
-            type,
             player,
-            assist,
             match,
+            number,
             time,
         });
         try {

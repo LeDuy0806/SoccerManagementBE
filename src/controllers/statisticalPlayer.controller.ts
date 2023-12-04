@@ -4,10 +4,10 @@ import { StatisticalPlayerService } from '@/services';
 import { NextFunction, Request, Response } from 'express';
 import { IStatisticalPLayer } from '@/interfaces';
 
-export class StatisticalPlayerServiceController {
+export class StatisticalPlayerController {
     public statisticalPlayer = Container.get(StatisticalPlayerService);
 
-    public getStatisticalPlayerServices = async (
+    public getStatisticalPlayers = async (
         req: Request,
         res: Response,
         next: NextFunction,
@@ -16,6 +16,21 @@ export class StatisticalPlayerServiceController {
             const StatisticalPlayers =
                 await this.statisticalPlayer.getStatisticalPlayers();
             res.status(HTTP_STATUS.OK).json(StatisticalPlayers);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    public getStatisticalTeamsByTags = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const { tags }: any = req.params;
+        try {
+            const statisticalTeams =
+                await this.statisticalPlayer.getStatisticalPlayersByTags(tags);
+            res.status(HTTP_STATUS.OK).json(statisticalTeams);
         } catch (error) {
             next(error);
         }
@@ -36,7 +51,7 @@ export class StatisticalPlayerServiceController {
         }
     };
 
-    public createstatisticalPlayer = async (
+    public createStatisticalPlayer = async (
         req: Request,
         res: Response,
         next: NextFunction,
@@ -53,7 +68,7 @@ export class StatisticalPlayerServiceController {
         }
     };
 
-    public updatestatisticalPlayer = async (
+    public updateStatisticalPlayer = async (
         req: Request,
         res: Response,
         next: NextFunction,

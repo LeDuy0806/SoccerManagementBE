@@ -7,12 +7,12 @@ export interface IPlayer {
     avatar: string;
     age: number;
     height: string;
+    weight: string;
     national: string;
     number: number;
     dob: Date;
-    dateStart: Date;
     position: string;
-    goals: number;
-    ownerClub?: string;
-    statisticalPlayer: IStatisticalPLayer;
+    statistical: IStatisticalPLayer;
+    tags: string;
+    captain?: boolean;
 }

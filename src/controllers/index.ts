@@ -17,6 +17,7 @@ export * from './sponsor.controller';
 export * from './stadium.controller';
 export * from './statisticalPlayer.controller';
 export * from './statisticalTeam.controller';
+export * from './statisticalTournament.controller';
 export * from './table.controller';
 export * from './team.controller';
 export * from './tournament.controller';

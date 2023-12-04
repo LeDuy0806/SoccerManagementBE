@@ -20,6 +20,37 @@ export class PlayerController {
         }
     };
 
+    public getPlayersByTags = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const { tags }: any = req.params;
+        try {
+            const Players = await this.player.getPlayersByTags(tags);
+            res.status(HTTP_STATUS.OK).json(Players);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    public getPlayersByTagsAndPosition = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const { tags, position }: any = req.params;
+        try {
+            const Players = await this.player.getPlayersByTagsAndPosition(
+                tags,
+                position,
+            );
+            res.status(HTTP_STATUS.OK).json(Players);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     public getPlayer = async (
         req: Request,
         res: Response,

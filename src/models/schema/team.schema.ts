@@ -6,29 +6,26 @@ import { ObjectId } from 'mongodb';
 const teamSchema = new Schema<ITeam>({
     name: { type: String, required: true },
     flag: { type: String, required: true },
+    rank: { type: String },
     coach: { type: ObjectId, ref: SCHEMA.COACH },
-    stadium: { type: ObjectId, ref: SCHEMA.STADIUM },
     players: [
         {
             type: ObjectId,
             ref: SCHEMA.PLAYER,
         },
     ],
+    stadium: { type: ObjectId, ref: SCHEMA.STADIUM },
     matches: [
         {
             type: ObjectId,
             ref: SCHEMA.MATCH,
         },
     ],
-    rank: {
-        type: String,
+    statistical: {
+        type: ObjectId,
+        ref: SCHEMA.STATISTICALTEAM,
     },
-    statisticalTeam: [
-        {
-            type: ObjectId,
-            ref: SCHEMA.TEAM,
-        },
-    ],
+    tags: [{ type: String, required: true }],
 });
 
 export const Team = model<ITeam>(SCHEMA.TEAM, teamSchema);

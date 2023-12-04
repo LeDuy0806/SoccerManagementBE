@@ -13,6 +13,7 @@ export * from './sponsor.service';
 export * from './stadium.service';
 export * from './statisticalPlayer.service';
 export * from './statisticalTeam.service';
+export * from './statisticalTournament.service';
 export * from './table.service';
 export * from './team.service';
 export * from './tournament.service';
