@@ -50,8 +50,34 @@ export class TableService {
         }
     }
 
+    public async getTableByTags(tags: string): Promise<ITable[]> {
+        try {
+            const tables = await Table.find({ tags: tags })
+                .populate({
+                    path: 'teams',
+                    populate: {
+                        path: 'coach',
+                        model: SCHEMA.COACH,
+                    },
+                })
+                .exec();
+            if (!tables) {
+                throw new HttpException(
+                    HTTP_STATUS.NOT_FOUND,
+                    `Table not found`,
+                );
+            }
+            return tables;
+        } catch {
+            throw new HttpException(
+                HTTP_STATUS.INTERNAL_SERVER_ERROR,
+                `Server error`,
+            );
+        }
+    }
+
     public async createTable(tableData: ITable): Promise<ITable> {
-        const { name, teams, leaderBoard, matches } = tableData;
+        const { name, teams, leaderBoard, matches, tags } = tableData;
         const existsTableName = await Table.findOne({
             name: tableData.name,
         });
@@ -66,6 +92,7 @@ export class TableService {
             teams,
             leaderBoard,
             matches,
+            tags,
         });
         try {
             const table = await newTable.save();
@@ -79,7 +106,7 @@ export class TableService {
     }
 
     public async updateTable(TableData: ITable, id: string): Promise<ITable> {
-        const { name, teams, leaderBoard, matches } = TableData;
+        const { name, teams, leaderBoard, matches, tags } = TableData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -93,6 +120,7 @@ export class TableService {
             teams,
             leaderBoard,
             matches,
+            tags,
         });
         try {
             const updateTable = await Table.findByIdAndUpdate(id, newTable, {

@@ -91,13 +91,16 @@ export class RoundService {
                     ],
                 })
                 .exec();
+
             if (!Rounds) {
                 throw new HttpException(
                     HTTP_STATUS.NOT_FOUND,
                     `Rounds not found`,
                 );
             }
-            return Rounds;
+            return Rounds.sort((a, b) => {
+                return b.priority - a.priority;
+            });
         } catch {
             throw new HttpException(
                 HTTP_STATUS.INTERNAL_SERVER_ERROR,
@@ -125,7 +128,8 @@ export class RoundService {
     }
 
     public async createRound(roundData: IRound): Promise<IRound> {
-        const { type, matches, numberOfTeam, tables, status } = roundData;
+        const { type, name, matches, numberOfTeam, tables, status, priority } =
+            roundData;
         // const existsRoundName = await Round.findOne({
         //     name: roundData.name,
         // });
@@ -137,10 +141,12 @@ export class RoundService {
         // }
         const newRound = new Round({
             type,
+            name,
             matches,
             numberOfTeam,
             tables,
             status,
+            priority,
         });
         try {
             const Round = await newRound.save();
@@ -154,7 +160,8 @@ export class RoundService {
     }
 
     public async updateRound(roundData: IRound, id: string): Promise<IRound> {
-        const { type, matches, numberOfTeam, tables, status } = roundData;
+        const { type, name, matches, numberOfTeam, tables, status, priority } =
+            roundData;
 
         if (!ObjectId.isValid(id)) {
             throw new HttpException(
@@ -165,10 +172,12 @@ export class RoundService {
 
         const newRound = new Round({
             type,
+            name,
             matches,
             numberOfTeam,
             tables,
             status,
+            priority,
         });
         try {
             const updateRound = await Round.findByIdAndUpdate(id, newRound, {

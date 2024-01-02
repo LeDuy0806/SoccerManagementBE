@@ -10,6 +10,7 @@ const tableSchema = new Schema<ITable>({
         { type: ObjectId, required: true, ref: SCHEMA.STATISTICALTEAM },
     ],
     matches: [{ type: ObjectId, required: true, ref: SCHEMA.MATCH }],
+    tags: { type: String, required: true },
 });
 
 export const Table = model<ITable>(SCHEMA.TABLE, tableSchema);
