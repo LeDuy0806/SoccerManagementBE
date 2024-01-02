@@ -15,6 +15,10 @@ class TableRoute implements Routes {
 
     private initializeRoutes() {
         this.router.get('/', wrapRequestHandler(this.table.getTables));
+        this.router.get(
+            '/tags/:tags',
+            wrapRequestHandler(this.table.getTableByTags),
+        );
     }
 }
 

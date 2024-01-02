@@ -7,7 +7,7 @@ import TournamentRoute from './tournament.routes';
 import TeamRoute from './team.routes';
 import StatisticalTeamRoute from './statisticalTeam.routes';
 import StatisticalPlayerRoute from './statisticalPlayer.routes';
-import StatisticalTournamentRoute from './StatisticalTournament.routes';
+import StatisticalTournamentRoute from './statisticalTournament.routes';
 import PlayerRoute from './player.routes';
 import PrizeRoute from './prize.routes';
 import StadiumRoute from './stadium.routes';

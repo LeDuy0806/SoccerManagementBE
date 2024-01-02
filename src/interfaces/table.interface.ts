@@ -6,4 +6,5 @@ export interface ITable {
     teams: ObjectId[];
     leaderBoard?: ObjectId[];
     matches: ObjectId[];
+    tags: string;
 }

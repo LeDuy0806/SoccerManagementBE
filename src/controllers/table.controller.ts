@@ -34,6 +34,20 @@ export class TableController {
         }
     };
 
+    public getTableByTags = async (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => {
+        const { tags }: any = req.params;
+        try {
+            const tables = await this.table.getTableByTags(tags);
+            res.status(HTTP_STATUS.OK).json(tables);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     public createTable = async (
         req: Request,
         res: Response,
