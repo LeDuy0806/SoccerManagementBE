@@ -2,17 +2,17 @@ import { ObjectId } from 'mongodb';
 import { IStatisticalPLayer } from './statisticalPlayer.interface';
 
 export interface IPlayer {
-    _id?: ObjectId;
-    name: string;
-    avatar: string;
-    age: number;
-    height: string;
-    weight: string;
-    national: string;
-    number: number;
-    dob: Date;
-    position: string;
-    statistical: IStatisticalPLayer;
-    tags: string;
-    captain?: boolean;
+  _id?: ObjectId;
+  name: string;
+  avatar: string;
+  age: number;
+  height: string;
+  weight: string;
+  national: string;
+  number: number;
+  dob: Date;
+  position: string;
+  statistical: IStatisticalPLayer;
+  tags: string;
+  captain?: boolean;
 }
