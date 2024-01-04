@@ -5,21 +5,18 @@ import { wrapRequestHandler } from '@/utils/handles';
 import { TableController } from '@/controllers/table.controller';
 
 class TableRoute implements Routes {
-    public router = Router();
-    public table = new TableController();
-    public path = PATHS.TABLE;
+  public router = Router();
+  public table = new TableController();
+  public path = PATHS.TABLE;
 
-    constructor() {
-        this.initializeRoutes();
-    }
+  constructor() {
+    this.initializeRoutes();
+  }
 
-    private initializeRoutes() {
-        this.router.get('/', wrapRequestHandler(this.table.getTables));
-        this.router.get(
-            '/tags/:tags',
-            wrapRequestHandler(this.table.getTableByTags),
-        );
-    }
+  private initializeRoutes() {
+    this.router.get('/', wrapRequestHandler(this.table.getTables));
+    this.router.get('/tags/:tags', wrapRequestHandler(this.table.getTableByTags));
+  }
 }
 
 export default TableRoute;

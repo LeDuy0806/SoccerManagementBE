@@ -10,6 +10,7 @@ import { connectDB } from './constants/config';
 import { defaultErrorHandler } from './middlewares/error.middlewares';
 import route from './routes';
 import { logger } from './utils/logger';
+import { API } from './constants/paths';
 
 dotenv.config();
 
@@ -24,16 +25,16 @@ app.use(express.json());
 
 app.use(route);
 
-const options = {
-    swaggerDefinition: {
-        info: {
-            title: 'Soccer Management Specification',
-            version: '1.0.0',
-            description:
-                'Soccer Management API Specification, website for soccer management model',
-        },
+const options: swaggerJSDoc.Options = {
+  swaggerDefinition: {
+    info: {
+      title: 'Soccer Management Specification',
+      version: '1.0.0',
+      description: 'Soccer Management API Specification, website for soccer management model',
     },
-    apis: ['swagger.yaml'],
+    basePath: API,
+  },
+  apis: ['swagger.yaml'],
 };
 
 const specs = swaggerJSDoc(options);
@@ -41,9 +42,9 @@ app.use('/api-documentation', swaggerUi.serve, swaggerUi.setup(specs));
 app.use(defaultErrorHandler);
 
 app.listen(PORT, () => {
-    logger.info(`=================================`);
-    logger.info(`======= ENV: ${NODE_ENV || 'development'} =======`);
-    logger.info(`🚀 App listening on http://${HOST_NAME}:${PORT}`);
-    logger.info(`🚀 API Spec http://${HOST_NAME}:${PORT}/api-documentation`);
-    logger.info(`=================================`);
+  logger.info(`=================================`);
+  logger.info(`======= ENV: ${NODE_ENV || 'development'} =======`);
+  logger.info(`🚀 App listening on http://${HOST_NAME}:${PORT}${API}`);
+  logger.info(`🚀 API Spec http://${HOST_NAME}:${PORT}/api-documentation`);
+  logger.info(`=================================`);
 });
