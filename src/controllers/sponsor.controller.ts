@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { SponsorService } from '@/services';
+import { SponsorRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { ISponsor } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class SponsorController {
-  public sponsor = Container.get(SponsorService);
+  public sponsor = Container.get(SponsorRepository);
 
   public getSponsors = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

@@ -1,11 +1,10 @@
-import { User } from '@/models/schema';
-import { Service } from 'typedi';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { IUser } from '@/interfaces';
+import { User } from '@/models/schema';
 import { ObjectId } from 'mongodb';
-@Service()
-export class UserService {
+
+export class UserRepository {
   public async getUsers(): Promise<IUser[]> {
     try {
       const users = await User.find();

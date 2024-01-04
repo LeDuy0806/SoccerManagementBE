@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { TeamService } from '@/services';
+import { TeamRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { ITeam } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class TeamController {
-  public team = Container.get(TeamService);
+  public team = Container.get(TeamRepository);
 
   public getTeams = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

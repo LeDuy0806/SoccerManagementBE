@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { ISponsor } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class SponsorService {
+
+export class SponsorRepository {
   public async getSponsors(): Promise<ISponsor[]> {
     try {
       const sponsors = await Sponsor.find();

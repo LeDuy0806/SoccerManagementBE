@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { StadiumService } from '@/services';
+import { StadiumRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IStadium } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class StadiumController {
-  public stadium = Container.get(StadiumService);
+  public stadium = Container.get(StadiumRepository);
 
   public getStadiums = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

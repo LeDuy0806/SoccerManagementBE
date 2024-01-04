@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { RoundService } from '@/services';
+import { RoundRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IRound } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class RoundController {
-  public round = Container.get(RoundService);
+  public round = Container.get(RoundRepository);
 
   public getRoundStage = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

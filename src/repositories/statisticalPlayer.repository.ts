@@ -5,8 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { IStatisticalPLayer } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
-@Service()
-export class StatisticalPlayerService {
+export class StatisticalPlayerRepository {
   public async getStatisticalPlayers(): Promise<IStatisticalPLayer[]> {
     try {
       const statisticalPlayers = await StatisticalPlayer.find();

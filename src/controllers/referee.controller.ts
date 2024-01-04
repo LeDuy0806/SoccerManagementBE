@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { RefereeService } from '@/services';
+import { RefereeRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IReferee } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class RefereeController {
-  public referee = Container.get(RefereeService);
+  public referee = Container.get(RefereeRepository);
 
   public getReferees = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

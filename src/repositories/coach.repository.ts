@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { ICoach } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class CoachService {
+
+export class CoachRepository {
   public async getCoaches(): Promise<ICoach[]> {
     try {
       const coaches = await Coach.find();

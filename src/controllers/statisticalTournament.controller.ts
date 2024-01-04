@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { StatisticalTournamentService } from '@/services';
+import { StatisticalTournamentRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IStatisticalTournament } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class StatisticalTournamentController {
-  public statisticalTournament = Container.get(StatisticalTournamentService);
+  public statisticalTournament = Container.get(StatisticalTournamentRepository);
 
   public getStatisticalTournaments = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { IAwardTeam } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class AwardTeamService {
+
+export class AwardTeamRepository {
   public async getAwardTeams(): Promise<IAwardTeam[]> {
     try {
       const awardTeams = AwardTeam.find();

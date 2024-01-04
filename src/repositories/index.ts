@@ -1,4 +1,4 @@
-export * from './auth.service';
+export * from './auth.repository';
 export * from './awardPlayer.service';
 export * from './awardTeam.service';
 export * from './card.service';

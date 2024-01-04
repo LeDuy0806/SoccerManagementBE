@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { ICard } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class CardService {
+
+export class CardRepository {
   public async getCards(): Promise<ICard[]> {
     try {
       const cards = await Card.find();

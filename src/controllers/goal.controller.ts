@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { GoalService } from '@/services';
+import { GoalRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IGoal } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class GoalController {
-  public goal = Container.get(GoalService);
+  public goal = Container.get(GoalRepository);
 
   public getGoals = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

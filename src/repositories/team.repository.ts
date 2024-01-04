@@ -5,8 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { ITeam } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
-@Service()
-export class TeamService {
+export class TeamRepository {
   public async getTeams(): Promise<ITeam[]> {
     try {
       const teams = await Team.find();

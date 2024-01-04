@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { IPlayer } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class PlayerService {
+
+export class PlayerRepository {
   public async getPlayers(): Promise<IPlayer[]> {
     try {
       const players = await Player.find();

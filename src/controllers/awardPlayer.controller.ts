@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { AwardPlayerService } from '@/services';
+import { AwardPlayerRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IAwardPlayer } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class AwardPlayerController {
-  public awardPlayer = Container.get(AwardPlayerService);
+  public awardPlayer = Container.get(AwardPlayerRepository);
 
   public getAwardPlayers = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

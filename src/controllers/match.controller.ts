@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { MatchService } from '@/services';
+import { MatchRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IMatch } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class MatchController {
-  public match = Container.get(MatchService);
+  public match = Container.get(MatchRepository);
 
   public getMatches = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

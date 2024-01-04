@@ -20,7 +20,7 @@ export interface DataStoredInToken {
 
 export interface TokenData {
   token: string;
-  expiresIn: number;
+  expiresIn: number | string;
 }
 
 export interface TokenPayload {

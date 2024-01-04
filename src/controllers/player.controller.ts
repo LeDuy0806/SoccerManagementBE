@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { PlayerService } from '@/services';
+import { PlayerRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IPlayer } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class PlayerController {
-  public player = Container.get(PlayerService);
+  public player = Container.get(PlayerRepository);
 
   public getPlayers = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

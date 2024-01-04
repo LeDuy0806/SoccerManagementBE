@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { CardService } from '@/services';
+import { CardRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { ICard } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class CardController {
-  public card = Container.get(CardService);
+  public card = Container.get(CardRepository);
 
   public getCards = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

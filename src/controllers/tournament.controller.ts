@@ -1,13 +1,13 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { TournamentService } from '@/services';
+import { TournamentRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { ITournament } from '@/interfaces';
 import { TournamentFormat } from '@/types/request';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class TournamentController {
-  public tournament = Container.get(TournamentService);
+  public tournament = Container.get(TournamentRepository);
 
   public getTournaments = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

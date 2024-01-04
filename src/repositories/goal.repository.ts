@@ -1,12 +1,10 @@
-import { Goal } from '@/models/schema';
-import { Service } from 'typedi';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { IGoal } from '@/interfaces';
+import { Goal } from '@/models/schema';
 import { ObjectId } from 'mongodb';
 
-@Service()
-export class GoalService {
+export class GoalRepository {
   public async getGoals(): Promise<IGoal[]> {
     try {
       const goal = await Goal.find();

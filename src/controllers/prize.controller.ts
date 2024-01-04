@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { PrizeService } from '@/services';
+import { PrizeRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IPrize } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class PrizeController {
-  public prize = Container.get(PrizeService);
+  public prize = Container.get(PrizeRepository);
 
   public getPrizes = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import { CreateUserDto, RefreshTokenDto } from '@/dtos';
 import { ResponseDto } from '@/dtos/http.dto';
-import { AuthService } from '@/services/auth.service';
+import { AuthRepository } from '@/repositories/auth.repository';
 import { NextFunction, Request, Response } from 'express';
 import Container from 'typedi';
 
 export class AuthController {
-  public auth = Container.get(AuthService);
+  public auth = Container.get(AuthRepository);
 
   public signUp = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {
@@ -15,8 +15,9 @@ export class AuthController {
 
       res.status(HTTP_STATUS.CREATED).json({
         data: {
-          profile: signUpUserData,
-          token: token,
+          user: signUpUserData,
+          accessToken: token.accessToken,
+          refreshToken: token.refreshToken,
         },
         status: HTTP_STATUS.CREATED,
         message: 'signup successfully!',
@@ -34,8 +35,9 @@ export class AuthController {
 
       res.status(HTTP_STATUS.OK).json({
         data: {
-          profile: findUser,
-          token: token,
+          user: findUser,
+          accessToken: token.accessToken,
+          refreshToken: token.refreshToken,
         },
         status: HTTP_STATUS.OK,
         message: 'login successfully!',

@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { CoachService } from '@/services';
+import { CoachRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { ICoach } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class CoachController {
-  public coach = Container.get(CoachService);
+  public coach = Container.get(CoachRepository);
 
   public getCoaches = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

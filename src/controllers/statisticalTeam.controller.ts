@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { StatisticalTeamService } from '@/services';
+import { StatisticalTeamRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IStatisticalTeam } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class StatisticalTeamController {
-  public statisticalTeam = Container.get(StatisticalTeamService);
+  public statisticalTeam = Container.get(StatisticalTeamRepository);
 
   public getStatisticalTeams = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

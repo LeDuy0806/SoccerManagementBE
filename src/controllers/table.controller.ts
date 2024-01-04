@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { TableService } from '@/services';
+import { TableRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { ITable } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class TableController {
-  public table = Container.get(TableService);
+  public table = Container.get(TableRepository);
 
   public getTables = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

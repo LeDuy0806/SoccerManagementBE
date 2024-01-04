@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { IReferee } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class RefereeService {
+
+export class RefereeRepository {
   public async getReferees(): Promise<IReferee[]> {
     try {
       const referees = await Referee.find();

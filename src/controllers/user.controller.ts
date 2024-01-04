@@ -1,12 +1,12 @@
 import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
-import { UserService } from '@/services';
+import { UserRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
 import { IUser } from '@/interfaces';
 import { ResponseDto } from '@/dtos/http.dto';
 
 export class UserController {
-  public user = Container.get(UserService);
+  public user = Container.get(UserRepository);
 
   public getUsers = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {

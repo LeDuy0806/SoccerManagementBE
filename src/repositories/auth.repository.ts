@@ -8,22 +8,20 @@ import { compare, hash } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import { Service } from 'typedi';
 
-const createToken = (user: IUser, exp: number, type: ETokenType): TokenData => {
+const createToken = (user: IUser, exp: number | string, type: ETokenType): TokenData => {
   const dataStoredInToken: DataStoredInToken = {
     id: user._id!.toString(),
     role: user.role,
     type: type,
   };
-  const expiresIn: number = 60 * 60;
 
   return {
-    expiresIn,
-    token: sign(dataStoredInToken, ACCESS_TOKEN_SECRET!, { expiresIn }),
+    expiresIn: exp,
+    token: sign(dataStoredInToken, ACCESS_TOKEN_SECRET!, { expiresIn: exp }),
   };
 };
 
-@Service()
-export class AuthService {
+export class AuthRepository {
   public async signup(userData: CreateUserDto): Promise<{ token: TokenPayload; signUpUserData: IUser }> {
     const findUser = await User.findOne({ email: userData.email });
     if (findUser) throw new HttpException(HTTP_STATUS.CONFLICT, `This email ${userData.email} already exists`);
@@ -59,8 +57,8 @@ export class AuthService {
       role.save();
     }
 
-    const accessTokenExp = 60 * 60;
-    const refreshTokenExp = 24 * 60 * 60;
+    const accessTokenExp = '8h';
+    const refreshTokenExp = '24h';
 
     const { token: accessToken } = createToken(createUserData, accessTokenExp, ETokenType.ACCESS);
 

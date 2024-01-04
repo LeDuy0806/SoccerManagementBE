@@ -6,8 +6,7 @@ import { ITournament } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 import { TournamentFormat } from '@/types/request';
 
-@Service()
-export class TournamentService {
+export class TournamentRepository {
   public async getTournaments(): Promise<ITournament[]> {
     try {
       const tournaments = await Tournament.find()

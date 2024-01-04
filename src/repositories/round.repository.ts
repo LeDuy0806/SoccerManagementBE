@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { IRound } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class RoundService {
+
+export class RoundRepository {
   public async getRoundStage(): Promise<IRound> {
     try {
       const rounds = await Round.findOne({ type: 'Stage' })

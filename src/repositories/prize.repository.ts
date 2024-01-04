@@ -5,8 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { IPrize } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
-@Service()
-export class PrizeService {
+export class PrizeRepository {
   public async getPrizes(): Promise<IPrize[]> {
     try {
       const prizes = await Prize.find();

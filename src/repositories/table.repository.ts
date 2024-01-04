@@ -4,8 +4,8 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
 import { ITable } from '@/interfaces';
 import { ObjectId } from 'mongodb';
-@Service()
-export class TableService {
+
+export class TableRepository {
   public async getTables(): Promise<ITable[]> {
     try {
       const tables = await Table.find()
