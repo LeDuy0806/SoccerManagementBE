@@ -1,147 +1,139 @@
 tags:
-    - name: auth
-      description: auth API
+  - name: auth
+    description: auth API
 
 paths:
-    # [POST] signup
-    /auth/signup:
-        post:
-            tags:
-                - auth
-            summary: Signup
-            parameters:
-                - name: body
-                  in: body
-                  description: user Data
-                  required: true
-                  schema:
-                      $ref: '#/definitions/CreateUsersDto'
-            responses:
-                201:
-                    description: 'Created'
-                400:
-                    description: 'Bad Request'
-                409:
-                    description: 'Conflict'
-                500:
-                    description: 'Server Error'
+  # [POST] signup
+  /auth/signup:
+    post:
+      tags:
+        - auth
+      summary: Signup
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/CreateUsersDto'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
 
-    # [POST] login
-    /auth/login:
-        post:
-            tags:
-                - auth
-            summary: Login
-            parameters:
-                - name: body
-                  in: body
-                  description: user Data
-                  required: true
-                  schema:
-                      $ref: '#/definitions/LoginDto'
-            responses:
-                200:
-                    description: 'OK'
-                400:
-                    description: 'Bad Request'
-                409:
-                    description: 'Conflict'
-                500:
-                    description: 'Server Error'
+  # [POST] login
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/LoginDto'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
 
-    # [POST] refresh
-    /auth/refresh:
-        post:
-            tags:
-                - auth
-            summary: Refresh
-            parameters:
-                - name: body
-                  in: body
-                  description: user Data
-                  required: true
-                  schema:
-                      $ref: '#/definitions/RefreshTokenDto'
-            responses:
-                200:
-                    description: 'OK'
-                400:
-                    description: 'Bad Request'
-                409:
-                    description: 'Conflict'
-                500:
-                    description: 'Server Error'
-            get:
-                tags:
-                    - general
-                summary: order in timeline
-                responses:
-                    200:
-                        description: 'OK'
-                    409:
-                        description: 'Conflict'
-                    500:
-                        description: 'Server Error'
+  # [POST] refresh
+  /auth/refresh:
+    post:
+      tags:
+        - auth
+      summary: Refresh
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/RefreshTokenDto'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+      get:
+        tags:
+          - general
+        summary: order in timeline
+        responses:
+          200:
+            description: 'OK'
+          409:
+            description: 'Conflict'
+          500:
+            description: 'Server Error'
 
 # definitions
 definitions:
-    CreateUsersDto:
-        type: object
-        required:
-            - email
-            - password
-        properties:
-            email:
-                type: string
-                description: user Email
-            password:
-                type: string
-                description: user Password
-            username:
-                type: string
-                description: user Fullname
-            phone:
-                type: string
-                description: user Phone
-            dob:
-                type: string
-                description: user's date of birth
-        example:
-            email: 'email.example.com@mail.vn'
-            password: '123456'
-            username: 'Example Username'
-            phone: '0123456789'
-            dob: '01/01/2000'
+  CreateUsersDto:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      username:
+        type: string
+        description: user Fullname
+      email:
+        type: string
+        description: user Email
+      password:
+        type: string
+        description: user Password
+    example:
+      username: 'Example Username'
+      email: 'email.example.com@mail.vn'
+      password: 'User*123'
 
-    LoginDto:
-        type: object
-        required:
-            - email
-            - password
-        properties:
-            email:
-                type: string
-                description: user Email
-            password:
-                type: string
-                description: user Password
+  LoginDto:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        description: user Email
+      password:
+        type: string
+        description: user Password
 
-    RefreshTokenDto:
-        type: object
-        required:
-            - refreshToken
-        properties:
-            refreshToken:
-                type: string
+  RefreshTokenDto:
+    type: object
+    required:
+      - refreshToken
+    properties:
+      refreshToken:
+        type: string
 
 securityDefinitions:
-    JWT:
-        type: apiKey
-        name: Authorization
-        in: header
-        scheme: bearer
-        description: Bearer Token
+  JWT:
+    type: apiKey
+    name: Authorization
+    in: header
+    scheme: bearer
+    description: Bearer Token
 
 schemes:
-    - https
-    - http
+  - https
+  - http
