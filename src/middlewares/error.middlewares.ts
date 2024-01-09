@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { omit } from 'lodash';
-
+import { ResponseDto } from '@/dtos/http.dto';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { CustomError } from '@/interfaces';
-import { ResponseDto } from '@/dtos/http.dto';
 
 export const defaultErrorHandler = (err: any, req: Request, res: Response<ResponseDto>, next: NextFunction) => {
   try {

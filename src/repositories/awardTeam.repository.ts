@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { IAwardTeam } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class AwardTeamRepository {
   public async getAwardTeams(): Promise<IAwardTeam[]> {
     try {

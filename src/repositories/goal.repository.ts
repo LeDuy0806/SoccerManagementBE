@@ -3,7 +3,9 @@ import { HttpException } from '@/exceptions/httpException';
 import { IGoal } from '@/interfaces';
 import { Goal } from '@/models/schema';
 import { ObjectId } from 'mongodb';
+import { Service } from 'typedi';
 
+@Service()
 export class GoalRepository {
   public async getGoals(): Promise<IGoal[]> {
     try {

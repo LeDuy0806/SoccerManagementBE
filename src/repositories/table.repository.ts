@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { ITable } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class TableRepository {
   public async getTables(): Promise<ITable[]> {
     try {

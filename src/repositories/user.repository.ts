@@ -3,7 +3,9 @@ import { HttpException } from '@/exceptions/httpException';
 import { IUser } from '@/interfaces';
 import { User } from '@/models/schema';
 import { ObjectId } from 'mongodb';
+import { Service } from 'typedi';
 
+@Service()
 export class UserRepository {
   public async getUsers(): Promise<IUser[]> {
     try {

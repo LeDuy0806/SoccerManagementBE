@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { ICard } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class CardRepository {
   public async getCards(): Promise<ICard[]> {
     try {

@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { ICoach } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class CoachRepository {
   public async getCoaches(): Promise<ICoach[]> {
     try {

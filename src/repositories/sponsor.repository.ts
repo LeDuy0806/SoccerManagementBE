@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { ISponsor } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class SponsorRepository {
   public async getSponsors(): Promise<ISponsor[]> {
     try {

@@ -21,6 +21,7 @@ const createToken = (user: IUser, exp: number | string, type: ETokenType): Token
   };
 };
 
+@Service()
 export class AuthRepository {
   public async signup(userData: CreateUserDto): Promise<{ token: TokenPayload; signUpUserData: IUser }> {
     const findUser = await User.findOne({ email: userData.email });
