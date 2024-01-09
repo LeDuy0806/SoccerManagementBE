@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { IRound } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class RoundRepository {
   public async getRoundStage(): Promise<IRound> {
     try {

@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { IMatch } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class MatchRepository {
   public async getMatches(): Promise<IMatch[]> {
     try {

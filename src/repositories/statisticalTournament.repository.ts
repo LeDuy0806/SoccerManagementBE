@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { IStatisticalTournament } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class StatisticalTournamentRepository {
   public async getStatisticalTournaments(): Promise<IStatisticalTournament[]> {
     try {

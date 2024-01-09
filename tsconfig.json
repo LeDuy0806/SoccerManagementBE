@@ -1,8 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["ES2022", "esnext.asynciterable"],
+    "target": "es6",
+    "lib": ["es2017", "esnext.asynciterable"],
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
@@ -22,16 +22,17 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
-      "@config": ["config"],
+      "@config": ["config/*"],
+      "@constants": ["constants/*"],
       "@controllers/*": ["controllers/*"],
-      "@database": ["database"],
       "@dtos/*": ["dtos/*"],
       "@exceptions/*": ["exceptions/*"],
       "@interfaces/*": ["interfaces/*"],
       "@middlewares/*": ["middlewares/*"],
       "@models/*": ["models/*"],
+      "@repositories/*": ["repositories/*"],
       "@routes/*": ["routes/*"],
-      "@services/*": ["services/*"],
+      "@types/*": ["types/*"],
       "@utils/*": ["utils/*"]
     }
   },

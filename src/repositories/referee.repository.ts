@@ -5,6 +5,7 @@ import { HttpException } from '@/exceptions/httpException';
 import { IReferee } from '@/interfaces';
 import { ObjectId } from 'mongodb';
 
+@Service()
 export class RefereeRepository {
   public async getReferees(): Promise<IReferee[]> {
     try {
