@@ -12,7 +12,7 @@ const statisticalPlayerSchema = new Schema<IStatisticalPLayer>({
   redCards: { type: Number, required: true },
   voteBestPlayer: { type: Number, required: true },
   voteBestPosition: { type: Number, required: true },
-  tags: { type: String, required: true },
+  tags: { type: String },
 });
 
 export const StatisticalPlayer = model<IStatisticalPLayer>(SCHEMA.STATISTICALPLAYER, statisticalPlayerSchema);

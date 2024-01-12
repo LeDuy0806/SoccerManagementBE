@@ -52,9 +52,11 @@ export class PlayerController {
   };
 
   public createPlayer = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
-    const PlayerData: IPlayer = req.body;
+    const playersData: IPlayer[] = req.body.players;
+    const idTeam: string = req.body.idTeam;
+
     try {
-      const player = await this.player.createPlayer(PlayerData);
+      const player = await this.player.createPlayer(playersData, idTeam);
       res
         .status(HTTP_STATUS.CREATED)
         .json({ data: player, status: HTTP_STATUS.CREATED, message: 'create player successfully' });
@@ -74,10 +76,10 @@ export class PlayerController {
     }
   };
 
-  public deletePlayer = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
-    const { id } = req.params;
+  public deletePlayerByOwner = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
+    const { id, idTeam } = req.params;
     try {
-      const result = await this.player.deletePlayer(id);
+      const result = await this.player.deletePlayerByOwner(id, idTeam);
       res.status(HTTP_STATUS.OK).json({ data: result, status: HTTP_STATUS.OK, message: 'delete player successfully' });
     } catch (error) {
       next(error);

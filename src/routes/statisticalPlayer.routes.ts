@@ -16,6 +16,7 @@ class StatisticalPlayerRoute implements Routes {
   private initializeRoutes() {
     this.router.get('/', wrapRequestHandler(this.statisticalPlayer.getStatisticalPlayers));
     this.router.get('/tags/:tags', wrapRequestHandler(this.statisticalPlayer.getStatisticalTeamsByTags));
+    this.router.post('/', wrapRequestHandler(this.statisticalPlayer.createStatisticalPlayer));
   }
 }
 

@@ -80,7 +80,7 @@ export class TeamRepository {
 
   public async getTeam(id: string): Promise<ITeam> {
     try {
-      const team = await Team.findById(id);
+      const team = await Team.findById(id).populate('representative').populate('coach').populate('players').exec();
       if (!team) {
         throw new HttpException(HTTP_STATUS.NOT_FOUND, `team not found`);
       }
@@ -91,7 +91,21 @@ export class TeamRepository {
   }
 
   public async createTeam(teamData: ITeam): Promise<ITeam> {
-    const { name, flag, rank, coach, stadium, players, matches, statistical } = teamData;
+    const {
+      name,
+      flag,
+      rank,
+      coach,
+      stadium,
+      players,
+      matches,
+      statistical,
+      representative,
+      level,
+      area,
+      isPublic,
+      uniform,
+    } = teamData;
     const existsTeamName = await Team.findOne({
       name: teamData.name,
     });
@@ -102,22 +116,28 @@ export class TeamRepository {
       name,
       flag,
       rank,
+      area,
+      level,
+      uniform,
+      isPublic: isPublic === 'PUBLIC' ? true : false,
       coach,
       stadium,
       players,
       matches,
       statistical,
+      representative,
     });
     try {
       const team = await newTeam.save();
       return team;
-    } catch {
+    } catch (e) {
+      console.log(e);
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }
   }
 
   public async updateTeam(teamData: ITeam, id: string): Promise<ITeam> {
-    const { name, flag, rank, coach, stadium, players, matches, statistical } = teamData;
+    const { name, flag, rank, coach, stadium, players, matches, statistical, uniform } = teamData;
 
     if (!ObjectId.isValid(id)) {
       throw new HttpException(HTTP_STATUS.NOT_FOUND, `No Team with id: ${id}`);
@@ -129,6 +149,7 @@ export class TeamRepository {
       rank,
       coach,
       stadium,
+      uniform,
       players,
       matches,
       statistical,

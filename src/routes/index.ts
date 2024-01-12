@@ -15,6 +15,10 @@ import RefereeRoute from './referee.routes';
 import RoundRoute from './round.routes';
 import TableRoute from './table.routes';
 
+// route.use('/api/auth/sign-up', (res, req) => {
+//   console.log('caaa');
+// });
+
 route.use(PATHS.AUTH, new AuthRoute().router);
 route.use(PATHS.TOURNAMENT, new TournamentRoute().router);
 route.use(PATHS.STATISTICALTOURNAMENT, new StatisticalTournamentRoute().router);

@@ -12,7 +12,7 @@ export interface IPlayer {
   number: number;
   dob: Date;
   position: string;
-  statistical: IStatisticalPLayer;
+  statistical: ObjectId;
   tags: string;
-  captain?: boolean;
+  captain?: string | boolean;
 }

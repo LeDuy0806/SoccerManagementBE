@@ -50,9 +50,10 @@ export class StatisticalTeamController {
     try {
       const statisticalTeam = await this.statisticalTeam.createStatisticalTeam(statisticalTeamData);
       res
-        .status(HTTP_STATUS.CREATE)
+        .status(HTTP_STATUS.CREATED)
         .json({ data: statisticalTeam, status: HTTP_STATUS.CREATE, message: 'create statistical team successfully' });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };

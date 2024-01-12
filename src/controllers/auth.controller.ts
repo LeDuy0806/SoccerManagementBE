@@ -23,6 +23,7 @@ export class AuthController {
         message: 'signup successfully!',
       });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };
@@ -30,7 +31,6 @@ export class AuthController {
   public logIn = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {
       const userData: CreateUserDto = req.body;
-      console.log(req.body);
       const { token, findUser } = await this.auth.login(userData);
 
       res.status(HTTP_STATUS.OK).json({
