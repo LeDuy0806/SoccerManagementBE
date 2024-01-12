@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 
 const teamSchema = new Schema<ITeam>({
   name: { type: String, required: true },
-  flag: { type: String, required: true },
+  flag: { type: String },
   rank: { type: String },
   coach: { type: ObjectId, ref: SCHEMA.COACH },
   players: [
@@ -25,7 +25,15 @@ const teamSchema = new Schema<ITeam>({
     type: ObjectId,
     ref: SCHEMA.STATISTICALTEAM,
   },
-  tags: [{ type: String, required: true }],
+  tags: { type: String },
+  representative: {
+    type: ObjectId,
+    ref: SCHEMA.USER,
+  },
+  level: { type: String, required: true },
+  area: { type: String, required: true },
+  isPublic: { type: Boolean, required: true },
+  uniform: [{ type: String }],
 });
 
 export const Team = model<ITeam>(SCHEMA.TEAM, teamSchema);

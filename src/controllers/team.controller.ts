@@ -51,6 +51,7 @@ export class TeamController {
 
   public createTeam = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     const teamData: ITeam = req.body;
+    // console.log(teamData);
     try {
       const team = await this.team.createTeam(teamData);
       res.status(HTTP_STATUS.CREATED).json({

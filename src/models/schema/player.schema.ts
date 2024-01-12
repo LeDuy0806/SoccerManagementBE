@@ -6,7 +6,7 @@ import { ObjectId } from 'mongodb';
 const playerSchema = new Schema<IPlayer>({
   name: { type: String, required: true },
   avatar: { type: String },
-  age: { type: Number, required: true },
+  age: { type: Number },
   height: { type: String, required: true },
   weight: { type: String, required: true },
   national: { type: String, required: true },
@@ -15,10 +15,9 @@ const playerSchema = new Schema<IPlayer>({
   position: { type: String, required: true },
   statistical: {
     type: ObjectId,
-    required: true,
     ref: SCHEMA.STATISTICALPLAYER,
   },
-  tags: { type: String, required: true },
+  tags: { type: String },
   captain: { type: Boolean, required: true },
 });
 

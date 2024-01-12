@@ -1,4 +1,4 @@
-import { Player } from '@/models/schema';
+import { Player, StatisticalPlayer, Team } from '@/models/schema';
 import { Service } from 'typedi';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
@@ -60,29 +60,44 @@ export class PlayerRepository {
     }
   }
 
-  public async createPlayer(playerData: IPlayer): Promise<IPlayer> {
-    const { name, avatar, age, height, national, number, dob, position, statistical } = playerData;
-    const existsPlayerName = await Player.findOne({
-      name: playerData.name,
+  public async createPlayer(playersData: IPlayer[], idTeam: string): Promise<IPlayer[]> {
+    const savePlayers: IPlayer[] = [];
+    await playersData.map((player, index) => {
+      const handle = async () => {
+        const newPlayer = new Player({
+          avatar: player.avatar,
+          captain: player.captain === 'Captain' ? true : false,
+          dob: player.dob,
+          height: player.height,
+          name: player.name,
+          national: player.national,
+          number: player.number,
+          position: player.position,
+          tags: player.tags,
+          weight: player.weight,
+        });
+
+        try {
+          const createPlayer = await newPlayer.save();
+          savePlayers.push(createPlayer);
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      handle();
     });
-    if (existsPlayerName) {
-      throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `Player already exists`);
-    }
-    const newPlayer = new Player({
-      name,
-      avatar,
-      age,
-      height,
-      national,
-      number,
-      dob,
-      position,
-      statistical,
+
+    console.log(idTeam);
+    const team = await Team.findById(idTeam);
+    await savePlayers.map(player => {
+      team.players.push(player._id);
     });
+
     try {
-      const Player = await newPlayer.save();
-      return Player;
-    } catch {
+      await team.save();
+      return savePlayers;
+    } catch (e) {
+      console.log(e);
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }
   }
@@ -115,14 +130,20 @@ export class PlayerRepository {
     }
   }
 
-  public async deletePlayer(id: string): Promise<string> {
+  public async deletePlayerByOwner(id: string, idTeam: string): Promise<string> {
     if (!ObjectId.isValid(id)) {
       throw new HttpException(HTTP_STATUS.NOT_FOUND, `No player with id: ${id}`);
     }
 
+    const player = await Player.findById(id);
+    const team = await Team.findById(idTeam);
+    team.players = await team.players.filter(player => String(player) !== id);
+
     try {
+      await team.save();
+      await StatisticalPlayer.findByIdAndRemove(player.statistical);
       await Player.findByIdAndRemove(id);
-      return 'Player deleted successfully!';
+      return 'player deleted successfully!';
     } catch {
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }

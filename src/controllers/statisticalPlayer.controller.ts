@@ -46,9 +46,10 @@ export class StatisticalPlayerController {
   };
 
   public createStatisticalPlayer = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
-    const statisticalPlayerData: IStatisticalPLayer = req.body;
+    const statisticalPlayersData: IStatisticalPLayer[] = req.body;
+    // console.log(statisticalPlayersData);
     try {
-      const statisticalPlayer = await this.statisticalPlayer.createStatisticalPlayer(statisticalPlayerData);
+      const statisticalPlayer = await this.statisticalPlayer.createStatisticalPlayer(statisticalPlayersData);
       res.status(HTTP_STATUS.CREATED).json({
         data: statisticalPlayer,
         status: HTTP_STATUS.CREATED,

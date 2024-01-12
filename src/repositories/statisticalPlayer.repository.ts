@@ -1,4 +1,4 @@
-import { StatisticalPlayer } from '@/models/schema';
+import { Player, StatisticalPlayer } from '@/models/schema';
 import { Service } from 'typedi';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
@@ -48,26 +48,54 @@ export class StatisticalPlayerRepository {
     }
   }
 
-  public async createStatisticalPlayer(StatisticalPlayerData: IStatisticalPLayer): Promise<IStatisticalPLayer> {
-    const { player, goals, owner, yellowCards, redCards, voteBestPlayer, voteBestPosition } = StatisticalPlayerData;
-    const existsStatisticalPlayerName = await StatisticalPlayer.findOne({
-      name: StatisticalPlayerData.player,
+  public async createStatisticalPlayer(statisticalPlayersData: IStatisticalPLayer[]): Promise<IStatisticalPLayer> {
+    // const { player, goals, owner, yellowCards, redCards, voteBestPlayer, voteBestPosition } = StatisticalPlayerData;
+    // const existsStatisticalPlayerName = await StatisticalPlayer.findOne({
+    //   name: StatisticalPlayerData.player,
+    // });
+    // if (existsStatisticalPlayerName) {
+    //   throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `StatisticalPlayer already exists`);
+    // }
+    // const newStatisticalPlayer = new StatisticalPlayer({
+    //   player,
+    //   goals,
+    //   owner,
+    //   yellowCards,
+    //   redCards,
+    //   voteBestPlayer,
+    //   voteBestPosition,
+    // });
+
+    await statisticalPlayersData.map((statistical, index) => {
+      const handle = async () => {
+        const newStatisticalPlayer = new StatisticalPlayer({
+          player: statistical.player,
+          team: statistical.team,
+          goals: statistical.goals,
+          owner: statistical.owner,
+          yellowCards: statistical.yellowCards,
+          redCards: statistical.redCards,
+          voteBestPlayer: statistical.voteBestPlayer,
+          voteBestPosition: statistical.voteBestPosition,
+          tags: '',
+        });
+
+        try {
+          const statisticalPlayer = await newStatisticalPlayer.save();
+          const player = await Player.findById(statistical.player);
+          player.statistical = statisticalPlayer._id;
+          await player.save();
+          return statisticalPlayer;
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      handle();
     });
-    if (existsStatisticalPlayerName) {
-      throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `StatisticalPlayer already exists`);
-    }
-    const newStatisticalPlayer = new StatisticalPlayer({
-      player,
-      goals,
-      owner,
-      yellowCards,
-      redCards,
-      voteBestPlayer,
-      voteBestPosition,
-    });
+
     try {
-      const StatisticalPlayer = await newStatisticalPlayer.save();
-      return StatisticalPlayer;
+      const a: any = 'Create Successfully';
+      return a;
     } catch {
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }

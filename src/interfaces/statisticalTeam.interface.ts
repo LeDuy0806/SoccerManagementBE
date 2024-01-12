@@ -9,6 +9,7 @@ export interface IStatisticalTeam {
   point: number;
   goals: number;
   losts: number;
+  matches: number;
   owns: number;
   yellowCards: number;
   redCards: number;

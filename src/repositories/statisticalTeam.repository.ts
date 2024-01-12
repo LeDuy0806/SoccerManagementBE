@@ -1,4 +1,4 @@
-import { StatisticalTeam } from '@/models/schema';
+import { StatisticalTeam, Team } from '@/models/schema';
 import { Service } from 'typedi';
 import HTTP_STATUS from '@/constants/httpStatus';
 import { HttpException } from '@/exceptions/httpException';
@@ -14,7 +14,8 @@ export class StatisticalTeamRepository {
         throw new HttpException(HTTP_STATUS.NOT_FOUND, `statisticalTeams not found`);
       }
       return statisticalTeams;
-    } catch {
+    } catch (e) {
+      console.log(e);
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }
   }
@@ -51,6 +52,7 @@ export class StatisticalTeamRepository {
       losses,
       point,
       goals,
+      matches,
       losts,
       owns,
       yellowCards,
@@ -59,12 +61,12 @@ export class StatisticalTeamRepository {
       voteChampions,
       voteFairPlays,
     } = teamData;
-    const existsTeamName = await StatisticalTeam.findOne({
-      name: teamData.team,
-    });
-    if (existsTeamName) {
-      throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `Team already exists`);
-    }
+    // const existsTeamName = await StatisticalTeam.findOne({
+    //   name: teamData.team,
+    // });
+    // if (existsTeamName) {
+    //   throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `Team already exists`);
+    // }
     const newTeam = new StatisticalTeam({
       team,
       wins,
@@ -72,6 +74,7 @@ export class StatisticalTeamRepository {
       losses,
       point,
       goals,
+      matches,
       losts,
       owns,
       yellowCards,
@@ -80,10 +83,16 @@ export class StatisticalTeamRepository {
       voteChampions,
       voteFairPlays,
     });
+    console.log('Vao day nghe cu');
+
+    const res = await Team.findById(team);
     try {
       const statisticalTeam = await newTeam.save();
+      res.statistical = new ObjectId(statisticalTeam._id);
+      await res.save();
       return statisticalTeam;
-    } catch {
+    } catch (e) {
+      console.log(e);
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }
   }
