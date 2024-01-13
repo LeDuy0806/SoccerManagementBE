@@ -1,6 +1,7 @@
 import HTTP_STATUS from '@/constants/httpStatus';
-import { CreateUserDto, RefreshTokenDto } from '@/dtos';
+import { CreateUserDto, LoginDto, RefreshTokenDto } from '@/dtos';
 import { ResponseDto } from '@/dtos/http.dto';
+import { RequestWithUser } from '@/interfaces';
 import { AuthRepository } from '@/repositories/auth.repository';
 import { NextFunction, Request, Response } from 'express';
 import Container from 'typedi';
@@ -30,7 +31,7 @@ export class AuthController {
 
   public logIn = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     try {
-      const userData: CreateUserDto = req.body;
+      const userData: LoginDto = req.body;
       const { token, findUser } = await this.auth.login(userData);
 
       res.status(HTTP_STATUS.OK).json({
@@ -61,7 +62,7 @@ export class AuthController {
     }
   };
 
-  public userRoute = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
+  public userRoute = async (req: RequestWithUser, res: Response<ResponseDto>, next: NextFunction) => {
     try {
       res.status(HTTP_STATUS.OK).json({
         data: req.user,
@@ -73,7 +74,7 @@ export class AuthController {
     }
   };
 
-  public adminRoute = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
+  public adminRoute = async (req: RequestWithUser, res: Response<ResponseDto>, next: NextFunction) => {
     try {
       res.status(HTTP_STATUS.OK).json({
         data: req.user,
