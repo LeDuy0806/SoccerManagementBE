@@ -13,13 +13,3 @@ export interface IUser {
   refreshToken?: string;
   role: ERole;
 }
-
-export interface IRoleType {
-  _id?: ObjectId;
-  name: string;
-}
-
-export interface IRole {
-  roleId: ObjectId;
-  userId: ObjectId;
-}

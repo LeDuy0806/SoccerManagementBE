@@ -1,9 +1,9 @@
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '@/config';
 import HTTP_STATUS from '@/constants/httpStatus';
-import { CreateUserDto, RefreshTokenDto } from '@/dtos';
+import { CreateUserDto, LoginDto, RefreshTokenDto } from '@/dtos';
 import { HttpException } from '@/exceptions/httpException';
 import { DataStoredInToken, ETokenType, IUser, TokenData, TokenPayload } from '@/interfaces';
-import { Role, RoleType, User } from '@/models/schema';
+import { User } from '@/models/schema';
 import { compare, hash } from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import { Service } from 'typedi';
@@ -35,29 +35,6 @@ export class AuthRepository {
 
     await createUserData.save();
 
-    const roleType = await RoleType.findOne({ name: userData.role });
-    if (roleType) {
-      const role = new Role({
-        userId: createUserData._id,
-        roleId: roleType._id,
-      });
-
-      role.save();
-    } else {
-      const newRoleType = new RoleType({
-        name: createUserData.role,
-      });
-
-      newRoleType.save();
-
-      const role = new Role({
-        userId: createUserData._id,
-        roleId: newRoleType._id,
-      });
-
-      role.save();
-    }
-
     const accessTokenExp = '8h';
     const refreshTokenExp = '24h';
 
@@ -74,7 +51,7 @@ export class AuthRepository {
     };
   }
 
-  public async login(userData: CreateUserDto): Promise<{ token: TokenPayload; findUser: IUser }> {
+  public async login(userData: LoginDto): Promise<{ token: TokenPayload; findUser: IUser }> {
     const findUser = await User.findOne({ email: userData.email });
     if (!findUser) throw new HttpException(HTTP_STATUS.CONFLICT, `This email ${userData.email} was not found`);
     if (findUser.isActive === false) throw new HttpException(HTTP_STATUS.CONFLICT, `This user was disabled`);

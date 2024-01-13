@@ -1,16 +1,16 @@
-import 'reflect-metadata';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import 'reflect-metadata';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 import { HOST_NAME, NODE_ENV } from './config';
 import { connectDB } from './constants/config';
+import { API } from './constants/paths';
 import { defaultErrorHandler } from './middlewares/error.middlewares';
 import route from './routes';
 import { logger } from './utils/logger';
-import { API } from './constants/paths';
 
 dotenv.config();
 
@@ -26,15 +26,30 @@ app.use(express.json());
 app.use(route);
 
 const options: swaggerJSDoc.Options = {
-  swaggerDefinition: {
+  definition: {
+    openapi: '3.0.0',
     info: {
       title: 'Soccer Management Specification',
       version: '1.0.0',
       description: 'Soccer Management API Specification, website for soccer management model',
     },
-    basePath: API,
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+    servers: [{ url: API }],
   },
-  apis: ['swagger.yaml'],
+  apis: ['src/routes/*.ts', 'src/models/schema/*.ts', 'src/dtos/*.ts'],
 };
 
 const specs = swaggerJSDoc(options);
