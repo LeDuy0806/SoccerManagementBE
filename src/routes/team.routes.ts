@@ -32,6 +32,7 @@ class TeamRoute implements Routes {
      *        description: Internal server error
      */
     this.router.get('/', wrapRequestHandler(this.team.getTeams));
+    this.router.get('/owner/:id', wrapRequestHandler(this.team.getTeamsByOwnerId));
 
     /**
      * @openapi
