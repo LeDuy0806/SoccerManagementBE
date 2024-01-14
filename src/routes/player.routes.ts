@@ -153,6 +153,37 @@ class PlayerRoute implements Routes {
      *
      */
     this.router.delete('/:id/team/:idTeam', wrapRequestHandler(this.player.deletePlayerByOwner));
+
+    /**
+     * @openapi
+     * '/player/{id}':
+     *  Update:
+     *     tags:
+     *     - Player
+     *     summary: Update player by owner
+     *     parameters:
+     *      - name: id
+     *        in: path
+     *        schema:
+     *          type: string
+     *        required: true
+     *      - name: idTeam
+     *        in: path
+     *        schema:
+     *          type: string
+     *        required: true
+     *     responses:
+     *      201:
+     *        description: Created
+     *      404:
+     *        description: Not found
+     *      400:
+     *        description: Bad request
+     *      500:
+     *        description: Internal server error
+     *
+     */
+    this.router.put('/:id', wrapRequestHandler(this.player.updatePlayer));
   }
 }
 

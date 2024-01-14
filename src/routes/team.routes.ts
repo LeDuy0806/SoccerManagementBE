@@ -32,6 +32,24 @@ class TeamRoute implements Routes {
      *        description: Internal server error
      */
     this.router.get('/', wrapRequestHandler(this.team.getTeams));
+
+    /**
+     * @openapi
+     * '/team':
+     *  get:
+     *     tags:
+     *     - Team
+     *     summary: Get owner teams
+     *     responses:
+     *      200:
+     *        description: Success
+     *      400:
+     *        description: Bad request
+     *      404:
+     *        description: Not found
+     *      500:
+     *        description: Internal server error
+     */
     this.router.get('/owner/:id', wrapRequestHandler(this.team.getTeamsByOwnerId));
 
     /**
@@ -109,6 +127,31 @@ class TeamRoute implements Routes {
      *
      */
     this.router.post('/', wrapRequestHandler(this.team.createTeam));
+
+    /**
+     * @openapi
+     * '/team':
+     *  put:
+     *     tags:
+     *     - Team
+     *     summary: Update a new team
+     *     requestBody:
+     *      required: true
+     *      content:
+     *        application/json:
+     *           schema:
+     *              $ref: '#/components/schemas/CreateTeamDto'
+     *     responses:
+     *      201:
+     *        description: Created
+     *      404:
+     *        description: Not found
+     *      400:
+     *        description: Bad request
+     *      500:
+     *        description: Internal server error
+     *
+     */
     this.router.put('/:id', wrapRequestHandler(this.team.updateTeam));
   }
 }
