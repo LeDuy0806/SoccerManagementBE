@@ -35,14 +35,14 @@ class RoundRoute implements Routes {
 
     /**
      * @openapi
-     * '/round/tags/:tags':
+     * '/round/tags/{tags}':
      *  get:
      *     tags:
      *     - Round
      *     summary: Get all rounds by tags
      *     parameters:
-     *      - in: path
-     *        name: tags
+     *      - name: tags
+     *        in: path
      *        schema:
      *          type: string
      *        required: true

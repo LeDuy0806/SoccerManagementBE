@@ -35,14 +35,14 @@ class TableRoute implements Routes {
 
     /**
      * @openapi
-     * '/table/tags/:tags':
+     * '/table/tags/{tags}':
      *  get:
      *     tags:
      *     - Table
      *     summary: Get all tables by tags
      *     parameters:
-     *      - in: path
-     *        name: tags
+     *      - name: tags
+     *        in: path
      *        schema:
      *          type: string
      *        required: true

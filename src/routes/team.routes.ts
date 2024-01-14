@@ -35,14 +35,14 @@ class TeamRoute implements Routes {
 
     /**
      * @openapi
-     * '/team/:id':
+     * '/team/{id}':
      *  get:
      *     tags:
      *     - Team
      *     summary: Get team by id
      *     parameters:
-     *      - in: path
-     *        name: id
+     *      - name: id
+     *        in: path
      *        schema:
      *          type: string
      *        required: true
@@ -60,14 +60,14 @@ class TeamRoute implements Routes {
 
     /**
      * @openapi
-     * '/team/tags/:tags':
+     * '/team/tags/{tags}':
      *  get:
      *     tags:
      *     - Team
      *     summary: Get all teams by tags
      *     parameters:
-     *      - in: path
-     *        name: tags
+     *      - name: tags
+     *        in: path
      *        schema:
      *          type: string
      *        required: true

@@ -2,6 +2,7 @@ export const API = '/api';
 
 export const PATHS = {
   AUTH: `${API}/auth`,
+  SPONSOR: `${API}/sponsor`,
   TOURNAMENT: `${API}/tournament`,
   STATISTICALTOURNAMENT: `${API}/statisticalTournament`,
   TEAM: `${API}/team`,

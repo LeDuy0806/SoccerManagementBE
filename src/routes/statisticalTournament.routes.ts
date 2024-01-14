@@ -35,14 +35,14 @@ class StatisticalTournamentRoute implements Routes {
 
     /**
      * @openapi
-     * '/statisticalTournament/:id':
+     * '/statisticalTournament/{id}':
      *  get:
      *     tags:
      *     - Statistical Tournament
      *     summary: Get statistical tournament by id
      *     parameters:
-     *      - in: path
-     *        name: id
+     *      - name: id
+     *        in: path
      *        schema:
      *          type: string
      *        required: true

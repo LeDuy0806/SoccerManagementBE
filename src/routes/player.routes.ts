@@ -35,14 +35,14 @@ class PlayerRoute implements Routes {
 
     /**
      * @openapi
-     * '/player/tags/:tags':
+     * '/player/tags/{tags}':
      *  get:
      *     tags:
      *     - Player
      *     summary: Get all players by tags
      *     parameters:
-     *      - in: path
-     *        name: tags
+     *      - name: tags
+     *        in: path
      *        schema:
      *          type: string
      *        required: true
@@ -61,19 +61,19 @@ class PlayerRoute implements Routes {
 
     /**
      * @openapi
-     * '/player/tags/:tags/position/:position':
+     * '/player/tags/{tags}/position/{position}':
      *  get:
      *     tags:
      *     - Player
      *     summary: Get all players by tags and position
      *     parameters:
-     *      - in: path
-     *        name: tags
+     *      - name: tags
+     *        in: path
      *        schema:
      *          type: string
      *        required: true
-     *      - in: path
-     *        name: position
+     *      - name: position
+     *        in: path
      *        schema:
      *          type: string
      *        required: true
@@ -125,19 +125,19 @@ class PlayerRoute implements Routes {
 
     /**
      * @openapi
-     * '/player/:id/team/:idTeam':
+     * '/player/{id}/team/{idTeam}':
      *  delete:
      *     tags:
      *     - Player
      *     summary: Delete player by owner
      *     parameters:
-     *      - in: path
-     *        name: id
+     *      - name: id
+     *        in: path
      *        schema:
      *          type: string
      *        required: true
-     *      - in: path
-     *        name: idTeam
+     *      - name: idTeam
+     *        in: path
      *        schema:
      *          type: string
      *        required: true

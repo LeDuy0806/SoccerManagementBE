@@ -23,11 +23,31 @@ export interface ITournament {
   maxTeam: number;
 }
 
+export interface CreateTournamentDto {
+  formula: ETypeFormulaTour;
+  name: string;
+  image: string;
+  logo: string;
+  prizes: string[];
+  vision: ETypeVisionTour;
+  teams: string[];
+  stadiums: string[];
+  referees: string[];
+  sponsor: string;
+  maxTeam: number;
+}
+
 export enum ETypeFormulaTour {
   STAGE = 'KNOCKOUT',
   ROUND_FIGHT = 'ROUND FIGHT',
   TABLE = 'GROUP STAGE',
 }
+
+export const FormulaTitle = new Map([
+  [ETypeFormulaTour.ROUND_FIGHT, 'Đấu vòng tròn'],
+  [ETypeFormulaTour.STAGE, 'Đấu loại trực tiếp'],
+  [ETypeFormulaTour.TABLE, 'Đấu bảng'],
+]);
 
 export enum ETypeVisionTour {
   DOMESTIC = 'DOMESTIC',

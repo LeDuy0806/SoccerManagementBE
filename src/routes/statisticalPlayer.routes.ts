@@ -35,14 +35,14 @@ class StatisticalPlayerRoute implements Routes {
 
     /**
      * @openapi
-     * '/statisticalPlayer/tags/:tags':
+     * '/statisticalPlayer/tags/{tags}':
      *  get:
      *     tags:
      *     - Statistical Player
      *     summary: Get all statistical players by tags
      *     parameters:
-     *      - in: path
-     *        name: tags
+     *      - name: tags
+     *        in: path
      *        schema:
      *          type: string
      *        required: true

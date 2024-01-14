@@ -35,14 +35,14 @@ class StatisticalTeamRoute implements Routes {
 
     /**
      * @openapi
-     * '/statisticalTeam/tags/:tags':
+     * '/statisticalTeam/tags/{tags}':
      *  get:
      *     tags:
      *     - Statistical Team
      *     summary: Get all statistical teams by tags
      *     parameters:
-     *      - in: path
-     *        name: tags
+     *      - name: tags
+     *        in: path
      *        schema:
      *          type: string
      *        required: true

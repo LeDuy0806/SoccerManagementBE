@@ -3,6 +3,26 @@ import { Schema, model } from 'mongoose';
 import { SCHEMA } from './schema-name';
 import { ObjectId } from 'mongodb';
 
+export const InitStatisticalTournament = {
+  totalPlayer: 0,
+  totalGoal: 0,
+  totalOwN: 0,
+  totalMatches: 0,
+  totalCard: 0,
+  matchMostGoal: [],
+  matchMostCard: [],
+  goalPerMatch: 0,
+  cardPerMatch: 0,
+  totalDoubleKick: 0,
+  totalHattrick: 0,
+  totalPocker: 0,
+  teamMostGoal: [],
+  teamMostCard: [],
+  totalYellowCard: 0,
+  totalRedCard: 0,
+  playerMostCard: [],
+};
+
 const statisticalTournamentSchema = new Schema<IStatisticalTournament>({
   totalPlayer: { type: Number, required: true },
   totalGoal: { type: Number, required: true },
