@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb';
+import { IStatisticalPLayer } from './statisticalPlayer.interface';
 
 export interface IPlayer {
   _id?: ObjectId;
