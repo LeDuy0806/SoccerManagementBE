@@ -2,7 +2,7 @@ import HTTP_STATUS from '@/constants/httpStatus';
 import Container from 'typedi';
 import { TournamentRepository } from '@/repositories';
 import { NextFunction, Request, Response } from 'express';
-import { ITournament } from '@/interfaces';
+import { CreateTournamentDto, ITournament } from '@/interfaces';
 import { TournamentFormat } from '@/types/request';
 import { ResponseDto } from '@/dtos/http.dto';
 
@@ -51,7 +51,7 @@ export class TournamentController {
   };
 
   public createTournament = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
-    const tournamentData: ITournament = req.body;
+    const tournamentData: CreateTournamentDto = req.body;
     try {
       const tournament = await this.tournament.createTournament(tournamentData);
       res.status(HTTP_STATUS.CREATED).json({

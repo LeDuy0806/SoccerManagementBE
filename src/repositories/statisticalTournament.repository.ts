@@ -80,53 +80,22 @@ export class StatisticalTournamentRepository {
   }
 
   public async createStatisticalTournament(tournamentData: IStatisticalTournament): Promise<IStatisticalTournament> {
-    const {
-      totalPlayer,
-      totalGoal,
-      totalMatches,
-      totalCard,
-      matchMostGoal,
-      matchMostCard,
-      goalPerMatch,
-      cardPerMatch,
-      totalDoubleKick,
-      totalHattrick,
-      totalPocker,
-      teamMostGoal,
-      teamMostCard,
-      totalYellowCard,
-      totalRedCard,
-    } = tournamentData;
-    // const existsTournamentName = await StatisticalTournament.findOne({
-    //     name: tournamentData.tournament,
-    // });
-    // if (existsTournamentName) {
-    //     throw new HttpException(
-    //         HTTP_STATUS.UNPROCESSABLE_ENTITY,
-    //         `Tournament already exists`,
-    //     );
-    // }
-    const newTournament = new StatisticalTournament({
-      totalPlayer,
-      totalGoal,
-      totalMatches,
-      totalCard,
-      matchMostGoal,
-      matchMostCard,
-      goalPerMatch,
-      cardPerMatch,
-      totalDoubleKick,
-      totalHattrick,
-      totalPocker,
-      teamMostGoal,
-      teamMostCard,
-      totalYellowCard,
-      totalRedCard,
-    });
     try {
+      // const existsTournamentName = await StatisticalTournament.findOne({
+      //     name: tournamentData.tournament,
+      // });
+      // if (existsTournamentName) {
+      //     throw new HttpException(
+      //         HTTP_STATUS.UNPROCESSABLE_ENTITY,
+      //         `Tournament already exists`,
+      //     );
+      // }
+      const newTournament = new StatisticalTournament(tournamentData);
+
       const statisticalTournament = await newTournament.save();
       return statisticalTournament;
-    } catch {
+    } catch (error) {
+      console.log('🚀 ~ StatisticalTournamentRepository ~ createStatisticalTournament ~ error:', error);
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }
   }

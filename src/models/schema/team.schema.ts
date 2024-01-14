@@ -3,6 +3,54 @@ import { Schema, model } from 'mongoose';
 import { SCHEMA } from './schema-name';
 import { ObjectId } from 'mongodb';
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreateTeamDto:
+ *      type: object
+ *      required:
+ *        - name
+ *        - level
+ *        - area
+ *        - isPublic
+ *      properties:
+ *        name:
+ *          type: string
+ *        flag:
+ *          type: string
+ *        rank:
+ *          type: string
+ *        coach:
+ *          type: string
+ *        players:
+ *          type: array
+ *          items:
+ *            type: string
+ *        stadium:
+ *          type: string
+ *        matches:
+ *          type: array
+ *          items:
+ *            type: string
+ *        statistical:
+ *          type: string
+ *        tags:
+ *          type: string
+ *        representative:
+ *          type: string
+ *        level:
+ *          type: string
+ *        area:
+ *          type: string
+ *        isPublic:
+ *          type: boolean
+ *        uniform:
+ *          type: array
+ *          items:
+ *            type: string
+ */
+
 const teamSchema = new Schema<ITeam>({
   name: { type: String, required: true },
   flag: { type: String },

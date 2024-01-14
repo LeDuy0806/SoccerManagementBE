@@ -14,6 +14,23 @@ class PrizeRoute implements Routes {
   }
 
   private initializeRoutes() {
+    /**
+     * @openapi
+     * '/prize':
+     *  get:
+     *     tags:
+     *     - Prize
+     *     summary: Get all prizes
+     *     responses:
+     *      200:
+     *        description: Success
+     *      400:
+     *        description: Bad request
+     *      404:
+     *        description: Not found
+     *      500:
+     *        description: Internal server error
+     */
     this.router.get('/', wrapRequestHandler(this.prize.getPrizes));
   }
 }

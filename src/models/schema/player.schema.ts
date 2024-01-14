@@ -3,6 +3,45 @@ import { Schema, model } from 'mongoose';
 import { SCHEMA } from './schema-name';
 import { ObjectId } from 'mongodb';
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreatePlayerDto:
+ *      type: object
+ *      required:
+ *        - name
+ *        - height
+ *        - weight
+ *        - national
+ *        - number
+ *        - dob
+ *        - position
+ *        - captain
+ *      properties:
+ *        name:
+ *          type: string
+ *        avatar:
+ *          type: string
+ *        age:
+ *          type: number
+ *        height:
+ *          type: string
+ *        weight:
+ *          type: string
+ *        national:
+ *          type: string
+ *        number:
+ *          type: number
+ *        dob:
+ *          type: string
+ *          format: date-time
+ *        position:
+ *          type: string
+ *        captain:
+ *          type: boolean
+ */
+
 const playerSchema = new Schema<IPlayer>({
   name: { type: String, required: true },
   avatar: { type: String },

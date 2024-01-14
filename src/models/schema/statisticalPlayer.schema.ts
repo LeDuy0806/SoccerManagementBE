@@ -3,6 +3,42 @@ import { Schema, model } from 'mongoose';
 import { SCHEMA } from './schema-name';
 import { ObjectId } from 'mongodb';
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreateStatisticalPLayerDto:
+ *      type: object
+ *      required:
+ *        - player
+ *        - team
+ *        - goals
+ *        - owner
+ *        - yellowCards
+ *        - redCards
+ *        - voteBestPlayer
+ *        - voteBestPosition
+ *      properties:
+ *        player:
+ *          type: string
+ *        team:
+ *          type: string
+ *        goals:
+ *          type: number
+ *        owner:
+ *          type: number
+ *        yellowCards:
+ *          type: number
+ *        redCards:
+ *          type: number
+ *        voteBestPlayer:
+ *          type: number
+ *        voteBestPosition:
+ *          type: number
+ *        tags:
+ *          type: string
+ */
+
 const statisticalPlayerSchema = new Schema<IStatisticalPLayer>({
   player: { type: ObjectId, required: true, ref: SCHEMA.PLAYER },
   team: { type: ObjectId, required: true, ref: SCHEMA.TEAM },

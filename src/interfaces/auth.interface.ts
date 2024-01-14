@@ -1,10 +1,10 @@
-import { User } from '@/models/schema';
 import { Request } from 'express';
+import { IUser } from './users.interface';
 
 export enum ERole {
   ADMIN = 'ADMIN',
-  CUSTOMER = 'CUSTOMER',
-  DELIVERER = 'DELIVERER',
+  OWNER = 'OWNER',
+  VIEWER = 'VIEWER',
 }
 
 export enum ETokenType {
@@ -29,5 +29,5 @@ export interface TokenPayload {
 }
 
 export interface RequestWithUser extends Request {
-  user: typeof User;
+  user: IUser;
 }

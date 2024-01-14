@@ -14,7 +14,48 @@ class StatisticalTournamentRoute implements Routes {
   }
 
   private initializeRoutes() {
+    /**
+     * @openapi
+     * '/statisticalTournament':
+     *  get:
+     *     tags:
+     *     - Statistical Tournament
+     *     summary: Get all statistical tournaments
+     *     responses:
+     *      200:
+     *        description: Success
+     *      400:
+     *        description: Bad request
+     *      404:
+     *        description: Not found
+     *      500:
+     *        description: Internal server error
+     */
     this.router.get('/', wrapRequestHandler(this.statisticalTournament.getStatisticalTournaments));
+
+    /**
+     * @openapi
+     * '/statisticalTournament/{id}':
+     *  get:
+     *     tags:
+     *     - Statistical Tournament
+     *     summary: Get statistical tournament by id
+     *     parameters:
+     *      - name: id
+     *        in: path
+     *        schema:
+     *          type: string
+     *        required: true
+     *     responses:
+     *      200:
+     *        description: Success
+     *      400:
+     *        description: Bad request
+     *      404:
+     *        description: Not found
+     *      500:
+     *        description: Internal server error
+     */
     this.router.get('/:id', wrapRequestHandler(this.statisticalTournament.getStatisticalTournament));
   }
 }
