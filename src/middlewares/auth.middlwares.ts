@@ -52,11 +52,3 @@ export const AdminCheckMiddleware = async (req: RequestWithUser, res: Response, 
     next();
   } else next(new HttpException(403, "Cannot access role admin's resource"));
 };
-
-export const DelivererCheckMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-  const { user } = req;
-  const acceptedRoles = [ERole.ADMIN, ERole.DELIVERER];
-  if (acceptedRoles.includes(user.role)) {
-    next();
-  } else next(new HttpException(403, "Cannot access role delieverer's resource"));
-};
