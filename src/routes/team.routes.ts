@@ -108,6 +108,7 @@ class TeamRoute implements Routes {
      *
      */
     this.router.post('/', wrapRequestHandler(this.team.createTeam));
+    this.router.put('/:id', wrapRequestHandler(this.team.updateTeam));
   }
 }
 

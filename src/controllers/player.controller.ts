@@ -67,10 +67,10 @@ export class PlayerController {
 
   public updatePlayer = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     const { id } = req.params;
-    const PlayerData: IPlayer = req.body;
+    const playerData: IPlayer = req.body;
     try {
-      const player = await this.player.updatePlayer(PlayerData, id);
-      res.status(HTTP_STATUS.OK).json({ data: player, status: HTTP_STATUS.OK, message: 'update player successfully' });
+      const player = await this.player.updatePlayer(playerData, id);
+      res.status(HTTP_STATUS.OK).json({ data: player, status: HTTP_STATUS.OK, message: 'Update player successfully' });
     } catch (error) {
       next(error);
     }

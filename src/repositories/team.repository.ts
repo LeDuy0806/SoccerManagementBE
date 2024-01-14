@@ -9,7 +9,19 @@ import { ObjectId } from 'mongodb';
 export class TeamRepository {
   public async getTeams(): Promise<ITeam[]> {
     try {
-      const teams = await Team.find();
+      const teams = await Team.find({ isPublic: true });
+      if (!teams) {
+        throw new HttpException(HTTP_STATUS.NOT_FOUND, `teams not found`);
+      }
+      return teams;
+    } catch {
+      throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
+    }
+  }
+
+  public async getTeamsByOwnerId(id: string): Promise<ITeam[]> {
+    try {
+      const teams = await Team.find({ representative: id });
       if (!teams) {
         throw new HttpException(HTTP_STATUS.NOT_FOUND, `teams not found`);
       }
@@ -137,23 +149,26 @@ export class TeamRepository {
   }
 
   public async updateTeam(teamData: ITeam, id: string): Promise<ITeam> {
-    const { name, flag, rank, coach, stadium, players, matches, statistical, uniform } = teamData;
+    const { name, flag, area, level, isPublic, uniform } = teamData;
 
     if (!ObjectId.isValid(id)) {
       throw new HttpException(HTTP_STATUS.NOT_FOUND, `No Team with id: ${id}`);
     }
 
+    if (!name || !area || !level) {
+      throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `information is empty`);
+    }
+
     const newTeam = new Team({
+      _id: teamData._id,
       name,
       flag,
-      rank,
-      coach,
-      stadium,
+      area,
+      level,
+      isPublic,
       uniform,
-      players,
-      matches,
-      statistical,
     });
+
     try {
       const updateTeam = await Team.findByIdAndUpdate(id, newTeam, {
         new: true,
