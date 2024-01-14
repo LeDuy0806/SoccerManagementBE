@@ -14,6 +14,7 @@ import StadiumRoute from './stadium.routes';
 import RefereeRoute from './referee.routes';
 import RoundRoute from './round.routes';
 import TableRoute from './table.routes';
+import SponsorRoute from './sponsor.routes';
 
 route.use(PATHS.AUTH, new AuthRoute().router);
 route.use(PATHS.TOURNAMENT, new TournamentRoute().router);
@@ -27,5 +28,6 @@ route.use(PATHS.STADIUM, new StadiumRoute().router);
 route.use(PATHS.REFEREE, new RefereeRoute().router);
 route.use(PATHS.ROUND, new RoundRoute().router);
 route.use(PATHS.TABLE, new TableRoute().router);
+route.use(PATHS.SPONSOR, new SponsorRoute().router);
 
 export default route;

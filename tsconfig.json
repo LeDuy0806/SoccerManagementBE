@@ -1,33 +1,41 @@
 {
-    "compilerOptions": {
-        "typeRoots": ["node_modules/@types"],
-        "allowSyntheticDefaultImports": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "forceConsistentCasingInFileNames": true,
-        "strictPropertyInitialization": false,
-        "moduleResolution": "node",
-        "module": "commonjs",
-        "target": "ES2022", // Target output cho code
-        "outDir": "dist",
-        "pretty": true,
-        "sourceMap": true,
-        "declaration": true,
-        "allowJs": true,
-        "noEmit": false,
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "importHelpers": true,
-        "strict": true /* Enable all strict type-checking options. */,
-        "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-        "baseUrl": ".", // Đường dẫn base cho các import
-        "paths": {
-            "@/*": ["src/*"] // Đường dẫn tương đối cho các import (alias)
-        }
-    },
-    "ts-node": {
-        "require": ["tsconfig-paths/register"]
-    },
-    "files": ["src/type.d.ts"], // Các file dùng để defined global type cho dự án
-    "include": ["src/**/*", "types"] // Đường dẫn include cho các file cần build
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es2017", "esnext.asynciterable"],
+    "typeRoots": ["node_modules/@types"],
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "pretty": true,
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "dist",
+    "allowJs": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@config": ["config/*"],
+      "@constants": ["constants/*"],
+      "@controllers/*": ["controllers/*"],
+      "@dtos/*": ["dtos/*"],
+      "@exceptions/*": ["exceptions/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@models/*": ["models/*"],
+      "@repositories/*": ["repositories/*"],
+      "@routes/*": ["routes/*"],
+      "@types/*": ["types/*"],
+      "@utils/*": ["utils/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
+  "exclude": ["node_modules", "src/http", "src/logs"]
 }

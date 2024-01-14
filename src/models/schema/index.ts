@@ -7,7 +7,6 @@ export * from './match.schema';
 export * from './player.schema';
 export * from './prize.schema';
 export * from './referee.schema';
-export * from './role.schema';
 export * from './round.schema';
 export * from './sponsor.schema';
 export * from './stadium.schema';

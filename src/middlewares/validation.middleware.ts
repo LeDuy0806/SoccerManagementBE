@@ -1,4 +1,5 @@
 import HTTP_STATUS from '@/constants/httpStatus';
+import { ResponseDto } from '@/dtos/http.dto';
 import { HttpException } from '@/exceptions/httpException';
 import { plainToInstance } from 'class-transformer';
 import { validateOrReject, ValidationError } from 'class-validator';
@@ -13,30 +14,26 @@ import { NextFunction, Request, Response } from 'express';
  * @param forbidNonWhitelisted If you would rather to have an error thrown when any non-whitelisted properties are present
  */
 export const ValidationMiddleware = (
-    type: any,
-    skipMissingProperties = false,
-    whitelist = true,
-    forbidNonWhitelisted = true,
+  type: any,
+  skipMissingProperties = false,
+  whitelist = true,
+  forbidNonWhitelisted = true,
 ) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-        const dto = plainToInstance(type, req.body);
-        validateOrReject(dto, {
-            skipMissingProperties,
-            whitelist,
-            forbidNonWhitelisted,
-        })
-            .then(() => {
-                req.body = dto;
-                next();
-            })
-            .catch((errors: ValidationError[]) => {
-                const message = errors
-                    .map((error: ValidationError) =>
-                        Object.values(error.constraints!),
-                    )
-                    .join(', ');
-                console.log(errors);
-                next(new HttpException(HTTP_STATUS.BAD_REQUEST, message));
-            });
-    };
+  return (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
+    const dto = plainToInstance(type, req.body);
+    validateOrReject(dto, {
+      skipMissingProperties,
+      whitelist,
+      forbidNonWhitelisted,
+    })
+      .then(() => {
+        req.body = dto;
+        next();
+      })
+      .catch((errors: ValidationError[]) => {
+        const message = errors.map((error: ValidationError) => Object.values(error.constraints!)).join(', ');
+        console.log(errors);
+        next(new HttpException(HTTP_STATUS.BAD_REQUEST, message));
+      });
+  };
 };

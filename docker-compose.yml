@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  app:
+    container_name: server
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ACCESS_TOKEN_SECRET: very secret key
+      REFRESH_TOKEN_SECRET: very secret key
+      HOST_NAME: localhost
+      PORT: 8080
+      MONGO_URI: mongodb+srv://quocanh:quocanh-1809@cluster0.jo6e3wp.mongodb.net/FootBall
+      LOG_FORMAT: dev
+      LOG_DIR: ../logs
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    restart: "unless-stopped"

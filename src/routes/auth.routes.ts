@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-import { PATHS } from '@/constants/paths';
 import { AuthController } from '@/controllers';
 import { CreateUserDto, LoginDto, RefreshTokenDto } from '@/dtos';
 import { Routes } from '@/interfaces';
@@ -8,31 +7,91 @@ import { ValidationMiddleware } from '@/middlewares/validation.middleware';
 import { wrapRequestHandler } from '@/utils/handles';
 
 class AuthRoute implements Routes {
-    public router = Router();
-    public auth = new AuthController();
-    public path = PATHS.AUTH;
+  public router = Router();
+  public auth = new AuthController();
 
-    constructor() {
-        this.initializeRoutes();
-    }
+  constructor() {
+    this.initializeRoutes();
+  }
 
-    private initializeRoutes() {
-        this.router.post(
-            `${this.path}/signup`,
-            ValidationMiddleware(CreateUserDto),
-            wrapRequestHandler(this.auth.signUp),
-        );
-        this.router.post(
-            `${this.path}/login`,
-            ValidationMiddleware(LoginDto),
-            wrapRequestHandler(this.auth.logIn),
-        );
-        this.router.post(
-            `${this.path}/refresh`,
-            ValidationMiddleware(RefreshTokenDto),
-            wrapRequestHandler(this.auth.refreshToken),
-        );
-    }
+  private initializeRoutes() {
+    /**
+     * @openapi
+     * '/auth/sign-up':
+     *  post:
+     *     tags:
+     *     - Auth
+     *     summary: Register a user
+     *     requestBody:
+     *      required: true
+     *      content:
+     *        application/json:
+     *           schema:
+     *              $ref: '#/components/schemas/CreateUserDto'
+     *     responses:
+     *      201:
+     *        description: Created
+     *      409:
+     *        description: Conflict
+     *      400:
+     *        description: Bad request
+     *      500:
+     *        description: Internal server error
+     *
+     */
+    this.router.post('/sign-up', wrapRequestHandler(this.auth.signUp));
+
+    /**
+     * @openapi
+     * /auth/login:
+     *  post:
+     *     tags:
+     *     - Auth
+     *     summary: Login to system
+     *     requestBody:
+     *      content:
+     *        application/json:
+     *           schema:
+     *              $ref: '#/components/schemas/LoginDto'
+     *     responses:
+     *      200:
+     *        description: Success
+     *      409:
+     *        description: Conflict
+     *      400:
+     *        description: Bad request
+     *      500:
+     *        description: Internal server error
+     */
+    this.router.post('/login', ValidationMiddleware(LoginDto), wrapRequestHandler(this.auth.logIn));
+
+    /**
+     * @openapi
+     * /auth/refresh:
+     *  post:
+     *     tags:
+     *     - Auth
+     *     summary: Refresh token
+     *     requestBody:
+     *      required: true
+     *      content:
+     *        application/json:
+     *           schema:
+     *              $ref: '#/components/schemas/RefreshTokenDto'
+     *     responses:
+     *      200:
+     *        description: Success
+     *      403:
+     *        description: Forbidden
+     *      409:
+     *        description: Conflict
+     *      400:
+     *        description: Bad request
+     *      500:
+     *        description: Internal server error
+     */
+    this.router.post('/refresh', ValidationMiddleware(RefreshTokenDto), wrapRequestHandler(this.auth.refreshToken));
+  }
 }
 
 export default AuthRoute;

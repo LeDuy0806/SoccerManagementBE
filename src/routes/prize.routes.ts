@@ -5,17 +5,34 @@ import { PATHS } from '@/constants/paths';
 import { wrapRequestHandler } from '@/utils/handles';
 
 class PrizeRoute implements Routes {
-    public router = Router();
-    public prize = new PrizeController();
-    public path = PATHS.PRIZE;
+  public router = Router();
+  public prize = new PrizeController();
+  public path = PATHS.PRIZE;
 
-    constructor() {
-        this.initializeRoutes();
-    }
+  constructor() {
+    this.initializeRoutes();
+  }
 
-    private initializeRoutes() {
-        this.router.get('/', wrapRequestHandler(this.prize.getPrizes));
-    }
+  private initializeRoutes() {
+    /**
+     * @openapi
+     * '/prize':
+     *  get:
+     *     tags:
+     *     - Prize
+     *     summary: Get all prizes
+     *     responses:
+     *      200:
+     *        description: Success
+     *      400:
+     *        description: Bad request
+     *      404:
+     *        description: Not found
+     *      500:
+     *        description: Internal server error
+     */
+    this.router.get('/', wrapRequestHandler(this.prize.getPrizes));
+  }
 }
 
 export default PrizeRoute;

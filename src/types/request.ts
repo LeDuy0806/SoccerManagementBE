@@ -1,5 +1,5 @@
 export type TournamentFormat = {
-    formula: string;
-    vision: string;
-    status: string;
+  formula: string;
+  vision: string;
+  status: string;
 };
