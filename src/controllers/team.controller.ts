@@ -21,6 +21,20 @@ export class TeamController {
     }
   };
 
+  public getTeamsByOwnerId = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
+    const { id } = req.params;
+    try {
+      const teams = await this.team.getTeamsByOwnerId(id);
+      res.status(HTTP_STATUS.OK).json({
+        data: teams,
+        status: HTTP_STATUS.OK,
+        message: 'get teams successfully',
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public getTeamsByTags = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     const { tags }: any = req.params;
     try {
@@ -67,6 +81,7 @@ export class TeamController {
   public updateTeam = async (req: Request, res: Response<ResponseDto>, next: NextFunction) => {
     const { id } = req.params;
     const teamData: ITeam = req.body;
+
     try {
       const team = await this.team.updateTeam(teamData, id);
       res.status(HTTP_STATUS.OK).json({

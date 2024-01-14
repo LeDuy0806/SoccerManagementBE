@@ -18,6 +18,7 @@ class PlayerRoute implements Routes {
     this.router.get('/tags/:tags', wrapRequestHandler(this.player.getPlayersByTags));
     this.router.get('/tags/:tags/position/:position', wrapRequestHandler(this.player.getPlayersByTagsAndPosition));
     this.router.post('/', wrapRequestHandler(this.player.createPlayer));
+    this.router.put('/:id', wrapRequestHandler(this.player.updatePlayer));
     this.router.delete('/:id/team/:idTeam', wrapRequestHandler(this.player.deletePlayerByOwner));
   }
 }

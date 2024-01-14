@@ -83,7 +83,6 @@ export class StatisticalTeamRepository {
       voteChampions,
       voteFairPlays,
     });
-    console.log('Vao day nghe cu');
 
     const res = await Team.findById(team);
     try {

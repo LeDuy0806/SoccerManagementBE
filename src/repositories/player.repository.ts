@@ -63,6 +63,9 @@ export class PlayerRepository {
   public async createPlayer(playersData: IPlayer[], idTeam: string): Promise<IPlayer[]> {
     const savePlayers: IPlayer[] = [];
     await playersData.map((player, index) => {
+      if (!player.captain || !player.name || !player.national || !player.weight || !player.number) {
+        throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `Please enter valid information`);
+      }
       const handle = async () => {
         const newPlayer = new Player({
           avatar: player.avatar,
@@ -82,12 +85,12 @@ export class PlayerRepository {
           savePlayers.push(createPlayer);
         } catch (e) {
           console.log(e);
+          // throw new HttpException(HTTP_STATUS.UNPROCESSABLE_ENTITY, `Please enter valid information`);
         }
       };
       handle();
     });
 
-    console.log(idTeam);
     const team = await Team.findById(idTeam);
     await savePlayers.map(player => {
       team.players.push(player._id);
@@ -103,13 +106,14 @@ export class PlayerRepository {
   }
 
   public async updatePlayer(playerData: IPlayer, id: string): Promise<IPlayer> {
-    const { name, avatar, age, height, national, number, dob, position, statistical } = playerData;
+    const { name, avatar, age, height, national, number, dob, position, weight } = playerData;
 
     if (!ObjectId.isValid(id)) {
       throw new HttpException(HTTP_STATUS.NOT_FOUND, `No Player with id: ${id}`);
     }
 
     const newPlayer = new Player({
+      _id: id,
       name,
       avatar,
       age,
@@ -118,14 +122,15 @@ export class PlayerRepository {
       number,
       dob,
       position,
-      statistical,
+      weight,
     });
     try {
       const updatePlayer = await Player.findByIdAndUpdate(id, newPlayer, {
         new: true,
       });
       return updatePlayer!;
-    } catch {
+    } catch (e) {
+      console.log(e);
       throw new HttpException(HTTP_STATUS.INTERNAL_SERVER_ERROR, `Server error`);
     }
   }
