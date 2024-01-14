@@ -1,5 +1,4 @@
 import { ObjectId } from 'mongodb';
-import { IStatisticalTeam } from './statisticalTeam.interface';
 
 export interface ITeam {
   _id?: ObjectId;

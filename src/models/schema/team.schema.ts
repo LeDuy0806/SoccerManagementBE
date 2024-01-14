@@ -51,6 +51,49 @@ import { ObjectId } from 'mongodb';
  *            type: string
  */
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    UpdateTeamDto:
+ *      type: object
+ *      properties:
+ *        name:
+ *          type: string
+ *        flag:
+ *          type: string
+ *        rank:
+ *          type: string
+ *        coach:
+ *          type: string
+ *        players:
+ *          type: array
+ *          items:
+ *            type: string
+ *        stadium:
+ *          type: string
+ *        matches:
+ *          type: array
+ *          items:
+ *            type: string
+ *        statistical:
+ *          type: string
+ *        tags:
+ *          type: string
+ *        representative:
+ *          type: string
+ *        level:
+ *          type: string
+ *        area:
+ *          type: string
+ *        isPublic:
+ *          type: boolean
+ *        uniform:
+ *          type: array
+ *          items:
+ *            type: string
+ */
+
 const teamSchema = new Schema<ITeam>({
   name: { type: String, required: true },
   flag: { type: String },
